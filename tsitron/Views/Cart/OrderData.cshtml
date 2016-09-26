@@ -1,0 +1,70 @@
+﻿@model tsitron.Domain.Entitys.Orders.CartItem
+@{
+    ViewBag.Title = "OrderData";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Укажите данные для доставки</h2>
+@using (Html.BeginForm("AddToCart", "Cart"))
+{
+    @Html.AntiForgeryToken()
+    @Html.Hidden("id",Model.Bouquet.Id)
+    @Html.Hidden("returnUrl",Model.ReturnUrl)
+    <div class="form-horizontal">
+        <div class="form-group">
+            <p class="control-label col-md-2">Имя получателя:</p>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Recipient.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Recipient.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <p class="control-label col-md-2">Телефон получателя:</p>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Recipient.Phone, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Recipient.Phone, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <p class="control-label col-md-2">Я получатель.</p>
+            <div class="col-md-10">
+                @Html.CheckBoxFor(model => model.Recipient.RecipientMe, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Recipient.Phone, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <p class="control-label col-md-2">Адрес доставки:</p>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Recipient.Adres, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Recipient.Adres, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <p class="control-label col-md-2">Дата и время доставки:</p>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Recipient.Date, new { htmlAttributes = new { @class = "form-control", @type= "datetime" } })
+                @Html.ValidationMessageFor(model => model.Recipient.Date, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <p class="control-label col-md-2">Не говорить от кого:</p>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Recipient.Incognito, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Recipient.Incognito, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <p class="control-label col-md-2">Я не знаю адреса:</p>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Recipient.UnknownAddress, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Recipient.UnknownAddress, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <a class="btn btn-danger" href="@Model.ReturnUrl">Отмена</a>
+                <input type="submit" value="Далее" class="btn btn-success"/>
+            </div>
+        </div>
+    </div>
+}

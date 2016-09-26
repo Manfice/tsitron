@@ -1,0 +1,12 @@
+﻿@model tsitron.Domain.Entitys.Customers.Customer
+@{
+    ViewBag.Title = "Личный кабинет";
+    Layout = "~/Views/Shared/_LayoutHead.cshtml";
+}
+
+<h2>Добрый день @Model.Title</h2>
+
+@if (User.Identity.IsAuthenticated == false)
+{
+    <h1>@Html.ActionLink("Теперь вы можете настроить стои личные данные","Login","Security")</h1>
+}

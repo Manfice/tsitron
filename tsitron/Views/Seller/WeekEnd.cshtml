@@ -1,0 +1,24 @@
+﻿@model IEnumerable<tsitron.Domain.Entitys.Customers.MyHolydays>
+
+@using (Html.BeginForm("AddWeekEnd","Seller",FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <input type="hidden" value="@ViewBag.Id" name="id"/>
+    @Html.Label("Укажите период выходных: с")
+    <input type="date" name="dayoff"/>
+    @Html.Label("по: ")
+    <input type="date" name="dayoffend"/>
+    <input class="btn btn-success btn-sm" type="submit" value="Сохранить" />
+}
+@if (Model.Any())
+{
+    <ul>
+        @foreach (var item in Model.Where(holydays => holydays.DayOff>DateTime.Today))
+        {
+            <li style="color: red">
+                Выходной: @item.DayOffCount дней, с @item.DayOff.ToLocalTime().ToLongDateString() по @item.DayOffEnd.ToLongDateString()
+                <span>@Html.ActionLink("Удалить","RemoveHolyday",new {id=@item.Id},new {@class="btn btn-warning btn-sm"})</span>
+            </li>
+        }
+    </ul>
+}

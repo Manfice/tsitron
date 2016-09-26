@@ -1,0 +1,265 @@
+﻿@model IEnumerable<tsitron.Domain.Entitys.Secure.User>
+
+@{
+    ViewBag.Title = "UserList";
+    Layout = "~/Views/Shared/_OwnerLayout.cshtml";
+}
+
+@section scripts
+{
+    <script type="text/javascript">
+        var userVm = {
+            msgCallBack: ko.observable(),
+            newUser: { phone: ko.observable('') },
+            users: ko.observableArray([]),
+            customers: ko.observableArray([])
+        }
+
+        var getUsers = function() {
+            $.ajax({
+                type: "Get",
+                url: "/api/webadmin/GetUsers/",
+                success: function(data) {
+                    userVm.users.removeAll();
+                    userVm.users.push.apply(userVm.users, data.users);
+                    userVm.customers.removeAll();
+                    userVm.customers.push.apply(userVm.customers, data.customers);
+                }
+            });
+        };
+
+        var blockCustomer = function(customer) {
+            $.ajax({
+                type: "Post",
+                url: "/api/webadmin/blockcustomer/",
+                data: customer,
+                success: function(data) {
+                    userVm.msgCallBack(data.message);
+                    getUsers();
+                }
+            });
+        };
+
+        var blockUser = function (user) {
+            $.ajax({
+                type: "Post",
+                url: "/api/webadmin/blockUser/",
+                data: user,
+                success: function (data) {
+                    userVm.msgCallBack(data.message);
+                    getUsers();
+                }
+            });
+        };
+
+        $(document).ready(function () {
+            getUsers();
+            ko.applyBindings();
+        });
+    </script>
+}
+
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Учетные записи пользователей
+                <p data-bind="text:userVm.msgCallBack"></p>
+            </div>
+            <div class="panel-body">
+                <ul class="nav nav-tabs">
+                    <li class="active">
+                        <a href="#statistic" data-toggle="tab">Статистика</a>
+                    </li>
+                    <li class="">
+                        <a href="#admins" data-toggle="tab">Администрация</a>
+                    </li>
+                    <li class="">
+                        <a href="#sellers" data-toggle="tab">Поставщики</a>
+                    </li>
+                    <li class="">
+                        <a href="#customers" data-toggle="tab">Покупатели</a>
+                    </li>
+                </ul>
+
+                <div class="tab-content">
+                    <div class="tab-pane fade active in" id="statistic">
+                        <h4>Статистика по пользователям:</h4>
+
+                    </div>
+                    <div class="tab-pane fade" id="admins">
+                        <div class="col-md-12">
+
+                            <div class="panel panel-default">
+
+                                <div class="panel-heading">
+                                    Администраторы портала:
+                                </div>
+
+                                <div class="panel-body">
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Блок</th>
+                                                    <th>Имя</th>
+                                                    <th>Телефон</th>
+                                                    <th>e-mail</th>
+                                                    <th>Регистрация</th>
+                                                    <th>Роль</th>
+                                                    <th>Действия</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody data-bind="foreach:userVm.users">
+                                                <tr data-bind="css:{danger:$data.block}">
+                                                    <td data-bind="text:$data.id"></td>
+                                                    <td><input type="checkbox" data-bind="checked:$data.block" disabled="true"/></td>
+                                                    <td data-bind="text:$data.name"></td>
+                                                    <td data-bind="text:$data.login"></td>
+                                                    <td data-bind="text:$data.email"></td>
+                                                    <td data-bind="text:$data.userRole.descr"></td>
+                                                    <td data-bind="text:$data.registerDate"></td>
+                                                    <td>
+                                                        <button>Редактировать</button>
+                                                        <button data-bind="click:blockUser">Заблокировать</button>
+                                                        <button>Удалить</button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+ 
+                    </div>
+                    <div class="tab-pane fade" id="sellers">
+                        <div class="col-md-12">
+
+                            <div class="panel panel-default">
+
+                                <div class="panel-heading">
+                                    Поставщики:
+                                </div>
+
+                                <div class="panel-body">
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Блок</th>
+                                                <th>Имя</th>
+                                                <th>Телефон</th>
+                                                <th>e-mail</th>
+                                                <th>Регистрация</th>
+                                                <th>Действия</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody data-bind="foreach:userVm.customers">
+                                            <tr data-bind="css:{danger:$data.user.block}">
+                                                <td data-bind="text:$data.id"></td>
+                                                <td><input type="checkbox" data-bind="checked:$data.user.block" disabled="true"/></td>
+                                                <td data-bind="text:$data.title"></td>
+                                                <td data-bind="text:$data.telephone"></td>
+                                                <td data-bind="text:$data.email"></td>
+                                                <td data-bind="text:$data.register"></td>
+                                                <td>
+                                                    <button>Редактировать</button>
+                                                    <button data-bind="click:blockCustomer, text:$data.user.block ? 'Разблокировать':'Блокировать'">Заблокировать</button>
+                                                    <button>Удалить</button>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="customers">
+                        <h4>Settings Tab</h4>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*@if (TempData["sAddUser"] != null)
+{
+    <p style="color: green">@TempData["sAddUser"]</p>
+}
+@if (TempData["eAddUser"] != null)
+{
+    <p style="color: red">@TempData["eAddUser"]</p>
+}
+<div class="box">
+    <div class="box-top">
+        Динамика
+    </div>
+    <div class="box-panel scrollable">
+        <p>
+            @Html.ActionLink("Добавить пользователя", "CreateUser", "Admin", new { returnUrl = Request.Url?.PathAndQuery},null)
+        </p>
+        <table class="table table-condensed table-striped">
+            <tr>
+                <th>
+                    Имя
+                </th>
+                <th>
+                    Логин
+                </th>
+                <th>
+                    E-mail
+                </th>
+                <th>
+                    Реальная почта? 
+                </th>
+                <th>
+                    Зарегистрирован
+                </th>
+                <th>
+                    Роль
+                </th>
+                <th>
+                    Действия
+                </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Login)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                        
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ConfirmEmail)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RegisterDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UserRole.Descr)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Редактировать", "Edit", new {id = item.Id}) |
+                        @Html.ActionLink("Подробнее", "Details", new {id = item.Id}) |
+                        @Html.ActionLink("Удалить", "Delete", new {id = item.Id}, new {@class="btn btn-danger btn-sm"})
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+</div>*@

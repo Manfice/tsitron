@@ -1,0 +1,74 @@
+﻿@model IEnumerable<tsitron.Domain.Models.BvmForHome>
+
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4">
+            <div class="bouquet">
+                <!-- bouquet-wrap -->
+                <div class="bouquet-wrap">
+
+                    <div class="bouquet-header">
+                        <a href="" title="Add to favorites"></a>
+                    </div>
+                    <div style="min-height: 350px;">
+                        @if (item.Image == null)
+                        {
+                            <img src="~/Content/img/no_image.jpg" alt="..."/>
+                        }
+                        else
+                        {
+                            <img src="@Url.Action("BouqPhoto", "Home", new {imgId = item.Image.Id})" alt="">
+                        }
+
+                    </div>
+
+                    <div class="bouquet-footer">
+                        <div class="bouquet-circles">
+                            @if (item.ColorValue == 0)
+                            {
+                                <div class="gradient-rainbow"></div>
+                            }
+                            else
+                            {
+                                <div style="background-color: rgb(@item.ComonColor.R,@item.ComonColor.G,@item.ComonColor.B)"></div>
+                            }
+                        </div>
+                    </div>
+
+                     @*show-hide content*@ 
+                    <div class="bouquet-descr">
+                        <div class="bouquet-content">
+                            <p>@item.Description</p>
+                            <p>@Html.ActionLink("Подробнее", "MakeOrder", new {id = item.Bouquet.Id}, new {@class = "btn btn-success"})</p>
+                            @if (@item.Bouquet.Price.Discount > 0)
+                            {
+                                <p class="discount">Скидка @item.Bouquet.Price.Discount%</p>
+                            }
+                        </div>
+                    </div><!-- ./show-hide content -->
+
+                    <!-- bouquet-info  -->
+                    <div class="bouquet-info">
+                        <p class="title"><a href="" title="Title of Item">@item.Title</a></p>
+                        <div class="longtitle">
+                            <p>Магазин <strong>«@item.Bouquet.Customer.Title»</strong>
+                            </p>
+                            <p>Изготовим за: <strong>@item.Time</strong></p>
+                        </div>
+
+                        <div class="pay-info">
+                            <div class="price">@item.Price р.</div>
+                            <div class="pay-it">
+                             @Html.ActionLink("В корзину","OrderData","Cart",new {id=item.Bouquet.Id, returnUrl=Request.Url.PathAndQuery}, new {@class="btn btn-success"})
+                            </div>
+                        </div>
+                    </div><!-- ./bouquet-info -->
+                </div><!-- ./bouquet-wrap -->
+            </div><!-- ./bouquet -->
+
+        </div>
+    }
+</div>
+

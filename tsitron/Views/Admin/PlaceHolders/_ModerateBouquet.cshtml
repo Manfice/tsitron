@@ -1,0 +1,84 @@
+﻿<h2>Сведения о букете</h2>
+<div class="row">
+    <div class="col-md-3 text-center">
+        <img data-bind="attr:{src:BouquetModel.bk.mainPhoto.path, alt:BouquetModel.bk.photos.altText}" width="300" />
+    </div>
+    <div class="com-md-9">
+        <h3>Наименование букета: "<span data-bind="text: BouquetModel.bk.title"></span>"</h3>
+        <p>Стоимость: <span data-bind="text:BouquetModel.bk.price.priceValue"></span>p.</p>
+        <p>Состав букета: <strong><span data-bind="text: BouquetModel.bk.flowerComposition"></span></strong></p>
+        <p>Описание букета: <span data-bind="text: BouquetModel.bk.description"></span></p>
+    </div>
+</div>
+<hr />
+
+<div class="row" data-bind="foreach:BouquetModel.bk.photos()">
+    <div class="col-md-2 text-center">
+        <img data-bind="attr:{src:$data.path, alt:$data.altText}" width="150" />
+    </div>
+</div>
+<hr />
+<h3>Редактировать данные букета: "<span data-bind="text:BouquetModel.bk.title"></span>"</h3>
+<div class="row">
+    <div class="col-md-4">
+        <div class="form-group">
+            <label>Наименование букта:</label>
+            <input type="text" data-bind="value:BouquetModel.bk.title" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label>Стоимость букта:</label>
+            <input type="text" data-bind="value:BouquetModel.bk.price.priceValue" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label>Время доставки букта (в минутах:):</label>
+            <input type="number" data-bind="value:BouquetModel.bk.timeToMake" class="form-control" />
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label>Состав букта:</label>
+            <textarea type="text" data-bind="value:BouquetModel.bk.flowerComposition" class="form-control" aria-multiline="true"></textarea>
+        </div>
+        <div class="form-group">
+            <label>Описание букта:</label>
+            <textarea type="text" data-bind="value:BouquetModel.bk.description" class="form-control" aria-multiline="true"></textarea>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label>Ширина букта:</label>
+            <input type="text" data-bind="value:BouquetModel.bk.details.width" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label>Высота букта:</label>
+            <input type="text" data-bind="value:BouquetModel.bk.details.height" class="form-control" />
+        </div>
+    </div>
+
+</div>
+
+<hr />
+<h4>Аттрибуты букета:</h4>
+<div class="row">
+    <div class="col-md-4">
+        <div data-bind="foreach:BouquetModel.bk.colors">
+            <div class="form-inline">
+                <label data-bind="text:$data.color.strValue"></label>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div data-bind="foreach:BouquetModel.bk.eventTypes">
+            <div class="form-inline">
+                <label data-bind="text:$data.eventType.title"></label>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="panel-footer">
+    <textarea type="text" data-bind="value:BouquetModel.moderateResult.ResultAnsw"></textarea>
+    <button data-bind="click:modResulttrue">Принять</button>
+    <button data-bind="click:modResultfalse">Отклонить</button>
+    <button data-bind="click:moderate">OK</button>
+</div>
+

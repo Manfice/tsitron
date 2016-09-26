@@ -1,0 +1,30 @@
+﻿@using tsitron.Domain.Entitys.Goods
+@model IEnumerable<Bouquet>
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <td>Артикул</td>
+        <td>Аватар</td>
+        <td>Наименование</td>
+        <td>Цена</td>
+        <td>Действия</td>
+    </tr>
+    </thead>
+    <tbody>
+        @{
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Articul</td>
+                    <td style="width: 10%"><img src="@Url.Content(item.Photos.FirstOrDefault(p=>p.ImageType==ArtGenerator.ImageType.Avatar).Path)" style="width: 100%" alt="..." /></td>
+                    <td>@item.Title</td>
+                    <td>@item.Price.PriceValue.ToString("#### руб.")</td>
+                    <td>
+                        @Html.ActionLink("Редактировать", "EditBouquet", "Seller", new { id = item.Id }, new { @class = "btn btn-info btn-sm" })
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

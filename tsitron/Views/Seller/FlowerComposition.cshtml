@@ -1,0 +1,42 @@
+﻿@model tsitron.Domain.Models.FCompositionViewModel
+
+<div>
+@if (Model.FlowerCompositions.Any())
+{
+    <table class="table table-responsive">
+        <thead>
+        <tr>
+            <td>Цветок</td>
+            <td>Кол-во</td>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model.FlowerCompositions)
+        {
+            <tr>
+                <td>@item.Flower</td>
+                <td>@item.Quantity.ToString("#### шт.")</td>
+                <td>
+                    @using (Html.BeginForm("DeleteFromConpose","Seller", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.Hidden("id", item.Id)
+                        <input type="submit" value="-" title="Убрать из букета" class="btn btn-warning btn-sm"/>
+                    }
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+</div>
+<div>
+    @using (Html.BeginForm("AddToComposition","Seller", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m=>m.FlowerComposition.Details.Id)
+        @Html.DropDownListFor(m=>m.FlowerComposition.Flower, @ViewBag.fl as SelectList)
+        @Html.EditorFor(m=>m.FlowerComposition.Quantity)
+        <input type="submit" value="+" title="Добавить" class="btn btn-success btn-sm"/>
+    }
+</div>

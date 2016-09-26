@@ -1,0 +1,147 @@
+﻿@{
+    Layout = "~/Views/Shared/_Main.cshtml";
+}
+@section scripts
+{
+    <script src="~/Scripts/Present/HomeController.js"></script>
+    <script src="~/Scripts/Present/Models.js"></script>
+    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            ymaps.ready(function() {
+                var geoloc = ymaps.geolocation;
+                console.log(geoloc.city);
+            });
+            ko.applyBindings();
+            getBouquets();
+        });
+    </script>
+}
+<!--Начало картинки-->
+<div class="titleImage clearfix">
+    <div class="container">
+        <div class="welcomeForm text-center">
+            <p>В сотрудничестве с местными флориставми</p>
+            <h3>Передайте свои чувства <br> вместе с цветами!</h3>
+            <p>__________________</p>
+            <p>Начните с ввода названия вашего города</p>
+            <div class="inpCity text-left">
+                <img src="~/Content/img/mapMarker.png" alt="map"/><input type="text" placeholder="Введите ваш город" data-bind="value:bouquets.region">
+            </div>
+            <div class="btnSend">
+                <a href="#" data-bind="click:getBouquets">Отправить букет</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Конец картинки-->
+
+<div class="mainBody">
+    <p class="text-center titleTop">Уникальные букеты доставляются из рук в руки!</p>
+    <div class="container">
+        <div class="row">
+            <hr/>
+            <div class="col-md-3">
+                <div class="filterMenu">
+                    <ul class="priceFil">
+                        <li><a href="#">Цена</a></li>
+                        <li><a href="#">до 2500 р.</a></li>
+                        <li><a href="#">2500-5000 р.</a></li>
+                        <li><a href="#">5000-10000 р.</a></li>
+                        <li><a href="#">от 10000 р.</a></li>
+                        <li><a href="#">Букеты со скидкой</a></li>
+                    </ul>
+                </div>
+                <hr/>
+                <div class="filterMenu">
+                    <ul class="delivery">
+                        <li><a href="#">Доставка</a></li>
+                        <li><a href="#">экспресс</a></li>
+                        <li><a href="#">Круглосуточно</a></li>
+                        <li><a href="#">Сегодня</a></li>
+                    </ul>
+                </div>
+                <hr />
+                <div class="filterMenu">
+                    <ul class="bouqType">
+                        <li><a href="#">Тип букета</a></li>
+                        <li><a href="#">Авторские</a></li>
+                        <li><a href="#">В коробках</a></li>
+                        <li><a href="#">В корзинах</a></li>
+                        <li><a href="#">Композиции</a></li>
+                        <li><a href="#">Свадебные</a></li>
+                        <li><a href="#">Монобукеты</a></li>
+                        <li><a href="#">Со сладостями</a></li>
+                        <li><a class="moreItems" href="#">показать еще</a></li>
+                    </ul>
+                </div>
+                <hr />
+                <div class="filterMenu">
+                    <ul class="bouqInclude">
+                        <li><a href="#">Букет содержит</a></li>
+                        <li><a href="#">Тюльпаны</a></li>
+                        <li><a href="#">Герберы</a></li>
+                        <li><a href="#">Антуриумы</a></li>
+                        <li><a href="#">Ирисы</a></li>
+                        <li><a href="#">Матрикарии</a></li>
+                        <li><a href="#">Подсолнухи</a></li>
+                        <li><a href="#">Стрелиции</a></li>
+                        <li><a href="#">Фрезии</a></li>
+                        <li><a href="#">Хризантемы </a></li>
+                        <li><a href="#">Эустомы</a></li>
+                        <li><a href="#">Альстромерия</a></li>
+                        <li><a href="#">Амариллис</a></li>
+                        <li><a href="#">Анемон</a></li>
+                        <li><a href="#">Азиатская Лилия</a></li>
+                        <li><a href="#">Каллы</a></li>
+                        <li><a href="#">Гвоздики</a></li>
+                        <li><a href="#">Орхидея</a></li>
+                        <li><a href="#">Ромашки</a></li>
+                        <li><a class="moreItems" href="#">показать еще</a></li>
+                    </ul>
+                </div>
+                <hr />
+                <div class="filterMenu">
+                    <ul class="bouqType">
+                        <li><a href="#">Цвет букета</a></li>
+                        <li><a href="#">Красный</a></li>
+                        <li><a href="#">Розовый</a></li>
+                        <li><a href="#">Пурпурный</a></li>
+                        <li><a href="#">Белый</a></li>
+                        <li><a href="#">Желтый</a></li>
+                        <li><a href="#">Персик</a></li>
+                        <li><a href="#">Зеленый</a></li>
+                        <li><a href="#">Синий</a></li>
+                        <li><a href="#">Оранжевый</a></li>
+                        <li><a href="#">Смешанный</a></li>
+                        <li><a class="moreItems" href="#">показать еще</a></li>
+                    </ul>
+                </div>
+                <hr />
+            </div>
+            <div class="col-md-9">
+                <div class="row">
+                    <h4 class="numberofBouq"><span></span> букетов и цветочных композиций найдена в Ставрополе</h4>
+                    <div class="col-md-12" data-bind="foreach:bouquets.goods.display">
+                        <div class="col-md-4 demention">
+                            <a data-bind="attr:{href:'/home/details/'+$data.marker}">
+                                <div class="flower">
+                                    <img data-bind="attr:{src:$data.avatar.path, alt:$data.avatar.alt}"/>
+                                    <div class="bFoot">
+                                        <p data-bind="text:$data.title">Букет</p>
+                                        <h4><span data-bind="text:$data.price"></span> <i class="fa fa-rub"></i></h4>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="lineOnly text-center">
+                    <a href="#" data-bind="click:showMore">Показать еще 5 <i class="fa fa-arrow-circle-o-down"></i></a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

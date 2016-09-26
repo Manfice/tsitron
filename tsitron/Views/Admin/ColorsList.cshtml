@@ -1,0 +1,53 @@
+﻿
+@model IEnumerable<tsitron.Domain.Models.ColorViewModel>
+
+<table class="table">
+    <tr>
+        <th>
+            Цвет:
+        </th>
+        <th>
+            Название:
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        @if (item.Rainbow)
+        {
+            <td>
+                <div class="color-circul gradient-rainbow">
+
+                </div>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+            </td>
+
+        }
+        else
+        {
+            <td>
+            <div class="color-circul" style="background-color: rgb(@item.Color.R, @item.Color.G, @item.Color.B)">
+
+            </div>
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @using (@Html.BeginForm("DeleteColorAsync", "Admin", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                @Html.Hidden("id", item.Id)
+                <input type="submit" class="btn btn-danger btn-sm" value="Удалить"/>
+            }
+        </td>
+        }
+    </tr>
+}
+
+</table>

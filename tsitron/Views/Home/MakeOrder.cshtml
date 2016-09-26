@@ -1,0 +1,102 @@
+﻿@model tsitron.Domain.Entitys.Orders.PreOrder
+
+@{
+    ViewBag.Title = "MakeOrder";
+    Layout = "~/Views/Shared/_Main.cshtml";
+}
+
+@section scripts
+{
+    <script src="~/Scripts/order/ModelO.js"></script>
+    <script src="~/Scripts/order/OCtrl.js"></script>
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-md-10 col-lg-offset-2 col-md-offset-1 fon">
+            <div class="recipient">
+                <h4 class="text-center">Укажите данные получателя</h4>
+                <div class="col-md-6">
+                    <h4>Кому</h4>
+                    <label>Имя получателя</label><br/>
+                    <input type="text" data-bind="value:order.recipient.name, enable:order.recipient.recipientMe()==false"/> <br/>
+                    <input type="checkbox" data-bind="checked:order.recipient.recipientMe"/>
+                    <label>Я получу букет сам</label><br/>
+                    <label>Телефон получателя</label><br/>
+                    <input type="tel" placeholder="+7" data-bind="value:order.recipient.phone"/><br/>
+                    <label>Адрес доставки</label><br/>
+                    <input type="text" data-bind="value:order.recipient.adres, enable:order.recipient.UnknownAddress()==false"/><br/>
+                    <input type="checkbox" data-bind="checked:order.recipient.UnknownAddress"/>
+                    <label title="Магазин сам свяжется с получателем и уточнит, куда доставить букет.">Я не знаю адреса</label>
+                    @*<label>Доставить за город, +35р/км.</label><br/>
+                    <input type="number" data-bind="value:order.recipient.delivery, valueUpdate: 'afterkeyup'"/><label> = <span data-bind=""></span>p.</label>*@
+
+                </div>
+                <div class="col-md-6">
+                    <h4>Когда</h4>
+                    <label>Дата доставки</label><br/>
+                    <input type="text" data-bind="value:order.recipient.date"/>
+                    <label>Магазин свяжется с покупателем и уточнит время доставки</label>
+                    <label>Комментарий</label><br/>
+                    <textarea data-bind="value:order.recipient.comment"></textarea>
+                </div>
+                <hr/>
+            </div>
+        </div>
+        <div class="col-lg-8 col-md-10 col-lg-offset-2 col-md-offset-1 fon">
+            <div class="recipient">
+                <h4 class="text-center">Укажите свои данные</h4>
+                <div class="col-md-6">
+                    <label>Ваше имя</label><br/>
+                    <input type="text" data-bind="value:order.customer.title"/><br/>
+                    <input type="checkbox" data-bind="checked:order.recipient.incognito, enable:order.recipient.recipientMe()==false"/>
+                    <label>Отправить анонимно</label><br/>
+                    <label>Телефон</label><br/>
+                    <input type="tel" data-bind="value:order.customer.telephone" placeholder="+7..."/>
+                </div>
+                <div class="col-md-6">
+                    <label>Электронная почта</label><br/>
+                    <input type="email" data-bind="value:order.customer.email"/>
+                </div>
+                <hr/>
+            </div>
+        </div>
+        <div class="col-lg-8 col-md-10 col-lg-offset-2 col-md-offset-1 fon">
+            <div class="orderInfo">
+                <h4>Проверьте данные вашего заказа</h4>
+                <hr class="coloredA"/>
+                <div class="col-md-12">
+                    <img data-bind="attr:{src:order.bouquet.avatar.path, alt:order.bouquet.avatar.alt}"/>
+                    <h2 data-bind="text:order.bouquet.title"></h2>
+                    <div class="ordQ">
+                        <input type="number" data-bind="value:order.bouquet.quantity"/>
+                        <p><span data-bind="text:order.bouquet.price"></span>p.
+                        </p>
+                    </div>
+                </div>
+                <hr class="coloredA"/>
+                <div class="col-md-6">
+                    <h3>Кому:</h3>
+                    <p>Получатель:<span data-bind="text:order.recipient.name"></span></p>
+                    <p>Телефон:<span data-bind="text:order.recipient.phone"></span></p>
+                    <p>Дата: <span data-bind="text:order.recipient.date"></span></p>
+                    <p>Адрес:<span data-bind="text:order.recipient.adres"></span></p>
+                </div>
+                <div class="col-md-6">
+                    <h3>От кого:</h3>
+                    <p>Имя:<span data-bind="text:order.customer.title"></span></p>
+                    <p>Телефон:<span data-bind="text:order.customer.telephone"></span></p>
+                    <p>E-mail:<span data-bind="text:order.customer.email"></span></p>
+                </div>
+                <div class="col-md-12 payOut">
+                <hr class="coloredA"/>
+                    <p>Итого, Ваш заказ вышел: <span data-bind="text:order.bouquet.price"></span> рублей.</p>
+                    <button data-bind="click:acceptOrder">ОПЛАТИТЬ ></button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+

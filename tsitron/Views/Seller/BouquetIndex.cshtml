@@ -1,0 +1,71 @@
+﻿@model tsitron.Domain.Models.ViewModelBouquet
+@{
+    ViewBag.Title = "BouquetIndex";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@section scripts
+{
+    <script src="~/Scripts/Models/bouquetModel.js"></script>
+    <script src="~/Scripts/Models/bouquetController.js"></script>
+
+    <script type="text/javascript">
+        
+        var setBouqData = function() {
+            getBouquet(@Model.Id);
+            addBShow('edit');
+        }
+
+        $(document).ready(function () {
+            getBouqList(@Model.Customer.Id);
+            ko.applyBindings();
+        });
+    </script>
+}
+
+<!--ko if:ViewModelBouquet.view()=='main'-->
+    <div>
+           @using (Ajax.BeginForm("AddBouquet", null,new AjaxOptions { HttpMethod = "POST"}, new { enctype = "multipart/form-data" })) //
+           {
+               @Html.AntiForgeryToken()
+               <div class="fileupload fileupload-new" data-provides="fileupload">
+                   <div class="panel panel-primary">
+                       <div class="panel-heading">
+                           Добавить новый букет
+                       </div>
+
+
+                       <div class="panel-body text-center">
+                           <p>Начните с фото вашего букета</p>
+                           <div class="">
+                               <div class="fileupload-new thumbnail" style="width: 300px; height: 300px;">
+                                   <img src="~/Content/img/15c21fd2e8e12007e89c838f89686c14.jpg" alt="" style="width: 100%"/>
+                               </div>
+                               <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 300px; max-height: 300px; line-height: 20px;"></div>
+                               <div>
+                                   <span class="btn btn-file btn-primary"><span class="fileupload-new">Выбрать</span><span class="fileupload-exists">Заменить</span><input type="file" name="Image"></span>
+                                   <a href="#" class="btn btn-danger fileupload-exists" data-dismiss="fileupload">Отменить</a>
+                               </div>
+                           </div>
+                       </div>
+
+
+                       <div class="panel-footer fileupload-exists">
+                           <div class="text-center">
+                               <button type="submit">Сохранить</button>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+           }
+    </div>
+<!--/ko-->
+<!--ko if:ViewModelBouquet.view()=='main'-->
+<div>
+    @Html.Partial("PlaceHolder/_BouqList")
+</div>
+<!--/ko-->
+<!--ko if:ViewModelBouquet.view()=='edit'-->
+<div>
+    @Html.Partial("PlaceHolder/_EditBouquet")
+</div>
+<!--/ko-->

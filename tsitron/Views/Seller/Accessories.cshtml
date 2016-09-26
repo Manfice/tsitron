@@ -1,0 +1,65 @@
+﻿@model IEnumerable<tsitron.Domain.Entitys.Goods.Accessories>
+@{
+    ViewBag.Title = "Accessories";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="well-lg">
+    <div class="row">
+        @using (Html.BeginForm("SaveAccessories","Seller", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+            <div class="col-md-3 pull-left">
+                <div class="formControl">
+                    <p>Фото аксессуара:</p>
+                    <div class="fileupload fileupload-new" data-provides="fileupload">
+                        <div class="fileupload-new thumbnail" style="width: 150px; height: 150px; overflow: hidden">
+                            <img src="~/Content/img/15c21fd2e8e12007e89c838f89686c14.jpg" alt="" style="width: 100%"/>
+                        </div>
+                        <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 150px; max-height: 150px; line-height: 20px;"></div>
+                        <div>
+                            <span class="btn btn-file btn-primary"><span class="fileupload-new">Выбрать</span><span class="fileupload-exists">Заменить</span><input type="file" name="photo"></span>
+                            <a href="#" class="btn btn-danger fileupload-exists" data-dismiss="fileupload">Отменить</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="formControl col-md-9">
+                @Html.Label("Наименование:")<br/>
+                <input type="text" name="title"/><br/>
+                @Html.Label("Цена:")<br/>
+                <input type="number" name="price"/><br/>
+                @Html.Label("Описание:")<br/>
+                <textarea name="comment" rows="3" placeholder="Описание товара"></textarea>
+                <input type="submit" value="Сохранить"/>
+            </div>
+        }
+    </div>
+</div>
+<div class="">
+    <table class="table table-striped table-hover table-responsive">
+        <thead>
+        <tr>
+            <td>#</td>
+            <td>Фото</td>
+            <td>Наименование</td>
+            <td>Описание</td>
+            <td>Цена</td>
+            <td>Действия</td>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td><img src="@item.Image.Path" alt="@item.Image.FileName" width="200"/></td>
+                <td>@item.Title</td>
+                <td>@item.Comment</td>
+                <td>@item.Price</td>
+                <td>@Html.ActionLink("Удалить","RomoveAccessory",new {id=item.Id})</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>

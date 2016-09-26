@@ -1,0 +1,18 @@
+﻿
+@{
+    ViewBag.Title = "Cпасибо за регистрацию";
+    Layout = "~/Views/Shared/_Main.cshtml";
+}
+
+<div class="thankYou text-center">
+    @if (TempData["secureMessage"] != null)
+            {
+        <div class="well">
+            <h4>@TempData["secureMessage"]</h4>
+        </div>
+    }    <div class="tYou">
+        <h1>СПАСИБО ЗА РЕГИСТРАЦИЮ</h1>
+        <p>Ваш запрос направлен администратору, после проверки ваших данных, вашу учетную запись активируют и сообщат об этом в СМС сообщении.</p>
+    </div>
+    <p>@Html.ActionLink("НА ГЛАВНУЮ","Index","Home")</p>
+</div>

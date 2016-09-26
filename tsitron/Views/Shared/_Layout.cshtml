@@ -1,0 +1,106 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tsitron - DemoFlowers</title>
+    @Styles.Render("~/Content/css")
+
+    @Scripts.Render("~/bundles/modernizr")
+
+   </head>
+<body>
+
+<nav class="navbar navbar-default navbar-fixed-top hidden-xs" role="navigation">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-9">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Оплата/доставка", "Index", "Home")</li>
+                    <li><a href="#">Отзывы <span class="badge">153</span></a></li>
+                    <li><a href="#">Как заказать</a></li>
+                    <li><a href="#">FAQ</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3">
+                <ul class="nav navbar-nav pull-right">
+                    <li><a href="#" style="padding: 8px"><span class="glyphicon glyphicon-shopping-cart user-height"></span></a></li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li><a id="user" href="#" style="padding: 8px; color: green;"><span class="glyphicon glyphicon-user user-height"></span></a></li>
+                        <li>@Html.ActionLink("Выход", "Logout", "Security")</li>
+
+                    }
+                    else
+                    {
+                        <li><a id="user" href="#" style="padding: 8px;"><span class="glyphicon glyphicon-user user-height"></span></a></li>
+                        <li>@Html.ActionLink("Регистрация", "Register", "Security")</li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+<nav class="navbar navbar-default navbar-fixed-top visible-xs">
+
+    <ul class="nav navbar-nav pull-right sm-nav">
+        <li><a href="#" style="padding: 8px"><span class="glyphicon glyphicon-shopping-cart user-height"></span></a></li>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <li><a id="user" href="#" style="padding: 8px; color: green;"><span class="glyphicon glyphicon-user user-height"></span></a></li>
+                        <li>@Html.ActionLink("Выход", "Logout", "Security")</li>
+
+        }
+        else
+        {
+            <li><a id="user" href="#" style="padding: 8px;"><span class="glyphicon glyphicon-user user-height"></span></a></li>
+                        <li>@Html.ActionLink("Регистрация", "Register", "Security")</li>
+        }
+    </ul>
+
+</nav>
+@if (User.IsInRole("A") || User.IsInRole("M") || User.IsInRole("O"))
+{
+    <div class="owner">
+        <ul>
+            <li>@Html.ActionLink("Настройки", "MainPage", "Admin")</li>
+        </ul>
+    </div>
+}
+else
+{
+    <div id="register" class="reg_section" style="display: none">
+        <div class="container">
+            <div class="row">
+                <div class="">
+                    @(User.Identity.IsAuthenticated ? Html.Action("RegistredCustomer", "Home", new {id = User.Identity.Name}) : Html.Action("Login", "Security"))
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @RenderBody()
+</div>
+
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Tsitron</p>
+        </footer>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jqueryval")
+    @RenderSection("scripts", required: false)
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#user").click(function() {
+                $("#register").toggle(100);
+            });
+        });
+    </script>
+</body>
+</html>

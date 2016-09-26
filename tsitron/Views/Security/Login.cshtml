@@ -1,0 +1,28 @@
+﻿@model tsitron.Domain.Models.LoginViewModel
+
+@using (Html.BeginForm("Login", "Security", FormMethod.Post, new {@class="login-title"}))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-inline">
+        
+        @Html.ValidationSummary()
+
+        <div class="form-group">
+            @Html.TextBoxFor(model => model.Telephone, new {@class = "", placeholder = "+70000000000"})
+            @Html.ValidationMessageFor(model=>model.Telephone)
+            
+        </div>
+
+        <div class="form-group" >
+
+            @Html.PasswordFor(model => model.Password, new {@placeholder="Password"})
+            @Html.ValidationMessageFor(maodel=>Model.Password)
+        </div>
+
+        <div class="form-group">
+            <input type="submit" value="войти" class="btn btn-warning btn-sm"/>
+        </div>
+        @Html.ActionLink("Регистрация","Register","Security", new {@class="btn btn-success"})
+    </div>
+}

@@ -1,0 +1,12 @@
+﻿@model tsitron.Domain.Entitys.Customers.Customer
+
+@if (Model != null)
+{
+    <nav class="menu">
+        <ul>
+            <li>@Html.ActionLink(@Model.Title, "Index", "Home", new {@class = "active-link"})</li>
+            <li>@Html.ActionLink("Личный кабинет", "Index", "Seller")</li>
+        </ul>
+    </nav>
+}
+

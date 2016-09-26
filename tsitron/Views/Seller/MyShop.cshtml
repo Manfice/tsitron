@@ -1,0 +1,115 @@
+﻿@model tsitron.Domain.Models.ShopVm
+
+@using (Html.BeginForm("SaveShopData", "Seller", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(vm => vm.Shop.Id)
+    <div class="formControl">
+        @Html.LabelFor(vm => vm.Shop.Title, "Наименование ")
+        @Html.EditorFor(vm => vm.Shop.Title)
+    </div>
+    <br />
+    <div class="formControl">
+        @Html.LabelFor(vm => vm.Shop.Descr, "Описание ")
+        @Html.TextAreaFor(vm => vm.Shop.Descr)
+    </div>
+    <br />
+    <div class="formControl">
+        @Html.LabelFor(vm => vm.Shop.Site, "Сайт ")
+        @Html.EditorFor(vm => vm.Shop.Site)
+    </div>
+    <br />
+    <div class="formControl">
+        @Html.EditorFor(vm => vm.Shop.FreePfoto)
+        @Html.LabelFor(vm => vm.Shop.FreePfoto, "Делаем бесплатное фото с букетом ")
+    </div>
+    <br />
+    <div class="formControl">
+        @Html.EditorFor(vm => vm.Shop.GreetingCard)
+        @Html.LabelFor(vm => vm.Shop.GreetingCard, "Отправляем открытку в подарок ")
+    </div>
+    <br />
+    <div class="container">
+        <div class="row">
+
+            <div class="formControl col-md-4">
+                <p>Логотип вашего магазина</p>
+                <div class="fileupload fileupload-new" data-provides="fileupload">
+                    <div class="fileupload-new thumbnail" style="width: 150px; height: 150px; overflow: hidden">
+                        <img src="~/Content/img/15c21fd2e8e12007e89c838f89686c14.jpg" alt="" style="width: 100%"/>
+                    </div>
+                    <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 150px; max-height: 150px; line-height: 20px;"></div>
+                    <div>
+                        <span class="btn btn-file btn-primary"><span class="fileupload-new">Выбрать</span><span class="fileupload-exists">Заменить</span><input type="file" name="shopLogo"></span>
+                        <a href="#" class="btn btn-danger fileupload-exists" data-dismiss="fileupload">Отменить</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="formControl col-md-4">
+                <p>Фото вашего магазина</p>
+                <div class="fileupload fileupload-new" data-provides="fileupload">
+                    <div class="fileupload-new thumbnail" style="width: 150px; height: 150px; overflow: hidden">
+                        <img src="~/Content/img/15c21fd2e8e12007e89c838f89686c14.jpg" alt="" style="width: 100%"/>
+                    </div>
+                    <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 150px; max-height: 150px; line-height: 20px;"></div>
+                    <div>
+                        <span class="btn btn-file btn-primary"><span class="fileupload-new">Выбрать</span><span class="fileupload-exists">Заменить</span><input type="file" name="shopPhoto"></span>
+                        <a href="#" class="btn btn-danger fileupload-exists" data-dismiss="fileupload">Отменить</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="formControl col-md-4">
+                <p>Флорист</p>
+                <div class="fileupload fileupload-new" data-provides="fileupload">
+                    <div class="fileupload-new thumbnail" style="width: 150px; height: 150px; overflow: hidden">
+                        <img src="~/Content/img/15c21fd2e8e12007e89c838f89686c14.jpg" alt="" style="width: 100%"/>
+                    </div>
+                    <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 150px; max-height: 150px; line-height: 20px;"></div>
+                    <div>
+                        <span class="btn btn-file btn-primary"><span class="fileupload-new">Выбрать</span><span class="fileupload-exists">Заменить</span><input type="file" name="florist"></span>
+                        <a href="#" class="btn btn-danger fileupload-exists" data-dismiss="fileupload">Отменить</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="well">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>График работы магазина</h2>
+                    <p>Укажите рабочие дни и время работы магазина:</p>
+                    <ul class="weekEnds">
+                        @for (int i = 0; i < Model.WeekEnds.Count; i++)
+                        {
+                            var shopGraphic = Model.WeekEnds[i];
+                            @Html.HiddenFor(vm => vm.WeekEnds[i].Id)
+                            <li>
+                                @Html.CheckBoxFor(vm => vm.WeekEnds[i].WeekEnd)
+                                @Html.LabelFor(vm => vm.WeekEnds[i].WeekDayWork, shopGraphic.WeekDayWork)
+                                @Html.LabelFor(vm => vm.WeekEnds[i].StartWork, "с")
+                                @Html.EditorFor(vm => vm.WeekEnds[i].StartWork)
+                                @Html.LabelFor(vm => vm.WeekEnds[i].EndWork, "до")
+                                @Html.EditorFor(vm => vm.WeekEnds[i].EndWork)
+                                @Html.CheckBoxFor(vm => vm.WeekEnds[i].AroundTheClock)
+                                @Html.LabelFor(vm => vm.WeekEnds[i].AroundTheClock, "круглосуточно")
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel-footer">
+        <div class="text-center">
+            <button type="submit">Сохранить</button>
+        </div>
+    </div>
+}
+<div class="col-md-6">
+    <h2>Выходные</h2>
+    @Html.Action("WeekEnd", new { id = Model.Shop.Id })
+</div>

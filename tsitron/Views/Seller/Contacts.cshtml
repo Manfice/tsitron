@@ -1,0 +1,50 @@
+﻿@model tsitron.Domain.Entitys.Customers.Contacts
+    
+@using (Html.BeginForm("SaveContacts","Seller", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    
+    @Html.HiddenFor(contacts => contacts.Id)
+    <div class="formControl">
+        @Html.LabelFor(contacts => contacts.Town,"Город ")
+        @Html.EditorFor(contacts => contacts.Town)
+    </div>
+    <div class="formControl">
+        @Html.LabelFor(contacts => contacts.Adres, "Адрес")
+        @Html.EditorFor(contacts => contacts.Adres)
+    </div>
+    <div class="formControl">
+        @Html.LabelFor(contacts => contacts.Phone1, "Телефон 1")
+        @Html.EditorFor(contacts => contacts.Phone1)
+    </div>
+    <div class="formControl">
+        @Html.LabelFor(contacts => contacts.Phone2, "Телефон 2")
+        @Html.EditorFor(contacts => contacts.Phone2)
+    </div>
+    <div class="formControl">
+        @Html.LabelFor(contacts => contacts.Email, "Email")
+        @Html.EditorFor(contacts => contacts.Email)
+    </div>
+    <div class="formControl">
+        @Html.LabelFor(contacts => contacts.ZapasnoiEmail, "Запасной Email")
+        @Html.EditorFor(contacts => contacts.ZapasnoiEmail)
+    </div>
+    <div class="formControl">
+        @Html.LabelFor(contacts => contacts.TimeToMakeAverage, "Среднее время создания и доставки")
+        @Html.EditorFor(contacts => contacts.TimeToMakeAverage, new {@type="time"})
+    </div>
+    <div class="formControl">
+        @Html.LabelFor(contacts => contacts.DeliverInTown, "Доставка по городу")
+        @Html.EditorFor(contacts => contacts.DeliverInTown)
+        @Html.ValidationMessageFor(contacts => contacts.DeliverInTown,"Введите просто число",new {@style="color: red"})
+    </div>
+    <div class="formControl">
+        @Html.LabelFor(contacts => contacts.DeliverOutTown, "Доставка за город")
+        @Html.EditorFor(contacts => contacts.DeliverOutTown)<span>руб./км.</span>
+        @Html.ValidationMessageFor(contacts => contacts.DeliverOutTown, "Введите просто число", new { @style = "color: red" })
+    </div>
+
+    <div class="panel-footer">
+        <button type="submit">Сохранить</button>
+    </div>
+}

@@ -1,0 +1,65 @@
+﻿@model tsitron.Domain.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Регистрация нового пользователя";
+    Layout = "~/Views/Shared/_Main.cshtml";
+}
+
+
+<div class="registerForm text-center">
+    <h1>Станьте нашим партнером прямо сейчас!</h1>
+    <div class="row">
+        <div class="col-md-4 col-lg-offset-2 regForm">
+            <h3>Присоеденяйтесь к нашей команде.</h3>
+            @if (TempData["secureMessage"] != null)
+            {
+                <div class="well">
+                    <h4>@TempData["secureMessage"]</h4>
+                </div>
+            }
+            @using (Html.BeginForm("Register", "Security", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary()
+                @Html.HiddenFor(model => model.Seller)
+                <i class="fa fa-shopping-bag"></i>
+                @Html.TextBoxFor(model => model.ShopName, new {@placeholder = "Название магазина без кавычек"})<br/>
+                <i class="fa fa-user"></i>
+                @Html.TextBoxFor(model => model.Name, new {placeholder = "Ваше имя", @class = "shotInput"})
+                <i class="fa fa-user"></i>
+                @Html.TextBoxFor(model => model.LastName, new {placeholder = "Ваша фамилия", @class = "shotInput"})<br/>
+                <i class="fa fa-envelope"></i>
+                @Html.TextBoxFor(model => model.Email, new {placeholder = "Адрес электронной почты"})<br/>
+                <i class="fa fa-globe"></i>
+                @Html.TextBoxFor(model => model.City, new {placeholder = "Город", @class = "shotInput"})
+                <i class="fa fa-map-pin"></i>
+                @Html.TextBoxFor(model => model.CityIndex, new {placeholder = "Индекс", @class = "shotInput"})<br/>
+                <i class="fa fa-phone"></i>
+                @Html.TextBoxFor(model => model.Login, new {placeholder = "Номер вашего мобильного телефона"})<br/>
+                <i class="fa fa-key"></i>
+                @Html.PasswordFor(model => model.Password, new {placeholder = "Пароль"})<br/>
+                <i class="fa fa-key"></i>
+                @Html.PasswordFor(model => model.ConfirmPassword, new {placeholder = "Введите пароль еще раз"})<br/>
+                <i class="fa fa-hand-o-right"></i>
+                <input type="submit" value="ПРИСОЕДЕНИТЬСЯ" class="agree"/>
+                <p>Нажимая кнопку <strong>ПРИСОЕДЕНИТЬСЯ</strong> Вы принимаете <a href="#">условия нашего договора</a>
+                </p>
+            }
+        </div>
+        <div class="col-md-6 hidden-sm hidden-xs">
+            <div class="pluses">
+                <h3></h3>
+                <ul class="text-left">
+                    <li><i class="fa fa-line-chart"></i>Увеличте свои продажи</li>
+                    <li><i class="fa fa-users"></i>Общайтесь и делитесь идеями</li>
+                    <li><i class="fa fa-user-plus"></i>Принимайте заказы напрямую от клиента</li>
+                </ul>
+            </div>
+            <div class="commentReg">
+                <img src="~/Content/img/face.jpg" alt="comment"/>
+                <p class="text-left">"С cервисом GettFlow я смогла расширить свою клиентскую базу, найти новых клиентов и значительно расширить ассортимен. Огромное вам спасибо."</p>
+                <p class="text-right">*директор магазина "Цветочек"<br/>Алина Цветаева<br/> г. Рязань
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

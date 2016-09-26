@@ -1,0 +1,10 @@
+﻿@model tsitron.Domain.Entitys.Secure.User
+
+<div class="adminRight">
+    <p>ПОЛЬЗОВАТЕЛЬ</p>
+    <h4>@Model.Name</h4>
+    <ul>
+        <li>@Html.ActionLink("Выход", "Logout", "Security")</li>
+        <li>@Html.ActionLink("На главную", "Index", "Home")</li>
+    </ul>
+</div>

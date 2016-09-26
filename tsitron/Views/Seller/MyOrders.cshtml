@@ -1,0 +1,104 @@
+﻿@using tsitron.Domain.Entitys.Orders
+@model IEnumerable<tsitron.Domain.Entitys.Orders.Order>
+@{
+    ViewBag.Title = "MyOrders";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="panelArea">
+    <div class="panel-head-area">
+        <div class="left-icon">
+            <i class="fa fa-th-list"></i>
+        </div>
+        <h2>ЗАКАЗЫ</h2>
+        <ul class="ordersSection">
+            <li><a href="@Url.Action("MyOrders","Seller",new {status=OrderStatus.Новый})">НОВЫХ ЗАКАЗОВ: <span>@Model.Count(order => order.Status == OrderStatus.Новый)</span></a></li>
+            <li><a href="@Url.Action("MyOrders","Seller",new {status=OrderStatus.Доставка})">НА ИСПОЛНЕНИИ: <span>@Model.Count(order => order.Status==OrderStatus.Доставка)</span></a></li>
+            <li><a href="@Url.Action("MyOrders","Seller",new {status=OrderStatus.Исполнен})">ВЫПОЛНЕНЫХ: <span>@Model.Count(order => order.Status == OrderStatus.Исполнен)</span></a></li>
+            <li><a href="@Url.Action("MyOrders","Seller",new {status=OrderStatus.Просрочен})">ПРОСРОЧЕННЫХ: <span>@Model.Count(order => order.Status == OrderStatus.Просрочен)</span></a></li>
+            <li><a href="@Url.Action("MyOrders")">ВСЕГО ЗАКАЗОВ: <span>@ViewBag.Total</span></a></li>
+        </ul>
+    </div>
+    <div class="panel-body-area">
+        <table>
+            <thead>
+            <tr>
+                <td>№</td>
+                <td>Дата</td>
+                <td>Доставка</td>
+                <td>Букет</td>
+                <td>Адресс</td>
+                <td>Цена</td>
+                <td>Вам:</td>
+                <td>Статус</td>
+                <td>Действия</td>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var item in Model)
+            {
+                if (item.Status == OrderStatus.Отказ)
+                {
+                    <tr style="background-color: #f6625a">
+                        <td>@item.Id</td>
+                        <td>@item.OrderDate.ToShortDateString()</td>
+                        <td>@item.Recipient.Date</td>
+                        <td>@item.Bouquet.Articul</td>
+                        <td>@item.Recipient.Adres</td>
+                        <td>@item.Bouquet.Price.PriceValue</td>
+                        <td>@((item.Bouquet.Price.PriceValue*(decimal) 0.85).ToString("C"))</td>
+                        <td>@item.Status</td>
+                        <td>
+                            <a href="@Url.Action("OrdserDetails", "Seller", new {id = item.Id})">Подробнее</a>
+                        </td>
+                    </tr>
+                    continue;
+                }
+                if (item.Status == OrderStatus.Исполнен)
+                {
+                    <tr style="background-color: #aff65a">
+                        <td>@item.Id</td>
+                        <td>@item.OrderDate.ToShortDateString()</td>
+                        <td>@item.Recipient.Date</td>
+                        <td>@item.Bouquet.Articul</td>
+                        <td>@item.Recipient.Adres</td>
+                        <td>@item.Bouquet.Price.PriceValue</td>
+                        <td>@((item.Bouquet.Price.PriceValue * (decimal)0.85).ToString("C"))</td>
+                        <td>@item.Status</td>
+                        <td>
+                            <a href="@Url.Action("OrdserDetails", "Seller", new {id = item.Id})">Подробнее</a>
+                        </td>
+                    </tr>
+                    continue;
+                }
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.OrderDate.ToShortDateString()</td>
+                    <td>@item.Recipient.Date</td>
+                    <td>@item.Bouquet.Articul</td>
+                    <td>@item.Recipient.Adres</td>
+                    <td>@item.Bouquet.Price.PriceValue</td>
+                    <td>@((item.Bouquet.Price.PriceValue * (decimal)0.85).ToString("C"))</td>
+                    <td>@item.Status</td>
+                    <td>
+                        <a href="@Url.Action("OrdserDetails", "Seller", new {id = item.Id})">Подробнее</a>
+                        @if (item.Status == OrderStatus.Доставка)
+                        {
+                            <a href="@Url.Action("ChangeStatus", "Seller", new {id = item.Id, status = OrderStatus.Исполнен})">Доставленно</a>
+                            <a href="@Url.Action("ChangeStatus","Seller",new {id=item.Id, status=OrderStatus.Отказ})">Отклонить</a>
+                        }
+                        @if(item.Status==OrderStatus.Новый)
+                        {
+                            <a href="@Url.Action("ChangeStatus", "Seller", new {id = item.Id, status = OrderStatus.Доставка})">Принять</a>
+                            <a href="@Url.Action("ChangeStatus","Seller",new {id=item.Id, status=OrderStatus.Отказ})">Отклонить</a>
+                        }
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+    <div class="panel-foot-area">
+        
+    </div>
+</div>

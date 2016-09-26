@@ -1,0 +1,106 @@
+﻿@using tsitron.Domain.Entitys.Goods
+@using tsitron.Domain.Models
+@model DetailsBouquetVm
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Main.cshtml";
+}
+@section scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+        });
+    </script>
+}
+
+<!--ko if:ViewModel.selectedViews.curentView()=='main'-->
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-6 previewBlock">
+                <img src="@Url.Content(Model.Bouquet.Photos.FirstOrDefault(p => p.ImageType == ArtGenerator.ImageType.Avatar).Path)" alt=""/>
+                <p>Описание продукта</p>
+                <p>@Model.Bouquet.Description</p>
+            </div>
+            <div class="col-md-6 text-center">
+
+                <div class="box-order">
+                    <h3>Выбор дизайнера - Ювелирные тона</h3>
+                    <div class="price">
+                        <p>@Model.Bouquet.Price.PriceValue.ToString("#### p.")</p>
+                        <p class="com">Букет будет доставлен максимально похожий на изображение</p>
+                    </div>
+                    <p class="ind">Введите почтовый индекс для расчета стоимости доставки.<span> Введите индекс:</span> </p>
+                    <input type="number" value=""/>
+
+                    <p class="setDate">ВЫБРАТЬ ДАТУ ДОСТАВКИ</p>
+
+@using (Html.BeginForm("MakeOrder","Home", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(vm => vm.Bouquet.Id)
+
+    foreach (var dt in Model.AvaluebleDates)
+     {
+         @Html.RadioButtonFor(vm => vm.AskDate,dt.AvDate.ToShortDateString())
+         @dt.AvDate.ToShortDateString()
+     }
+
+    <input type="submit" value="ЗАКАЗАТЬ СЕЙЧАС" class="btn btn-success btn-lg ordNow"/>
+}
+
+                    @*<a href="@Url.Action("MakeOrder", "Home", new {id = Model.Bouquet.Id, date=Model.AskDate})" class="btn btn-success btn-lg ordNow">ЗАКАЗАТЬ СЕЙЧАС</a>*@
+                </div>
+                <p class="desing">РАЗРАБОТАННО И СДЕЛАНО:</p>
+                <div class="monger">
+
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="mongerSummary">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--/ko-->
+
+<!--
+                    <ul>
+                        <li>
+                            <button>
+                                <div class="btText">
+                                    <p>Сегодня<br/>1 ФЕВРАЛЯ
+                                    </p>
+                                </div>
+                            </button>
+                        </li>
+                        <li>
+                            <button>
+                                <div class="btText">
+                                    <p>Завтра<br/>2 ФЕВРАЛЯ
+                                    </p>
+                                </div>
+                            </button>
+                        </li>
+                        <li>
+                            <button>
+                                <div class="btText">
+                                    <p>Послезавтра<br/>3 ФЕВРАЛЯ
+                                    </p>
+                                </div>
+                            </button>
+                        </li>
+                        <li>
+                            <button>
+                                <div class="btText">
+                                    <p>НА<br/>ДАТУ
+                                    </p>
+                                </div>
+                            </button>
+                        </li>
+                    </ul>    
+-->

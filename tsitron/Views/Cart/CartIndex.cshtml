@@ -1,0 +1,39 @@
+﻿@model tsitron.Domain.Models.CartViewModel
+@{
+    ViewBag.Title = "CartIndex";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Корзина покупок</h2>
+<table class="table table-striped table-hover">
+    <thead>
+    <tr>
+        <th>Артикул</th>
+        <th>Аватар</th>
+        <th>Продавец</th>
+        <th>Цена букета</th>
+        <th>Кол-во</th>
+        <th>Сумма</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model.Cart.GetCartItems)
+    {
+        <tr>
+            <td>@item.Bouquet.Articul</td>
+            <td style="width: 10%"><img src="@Url.Action("GetImage", "Seller", new {bouqId = item.Bouquet.Id})" style="width: 100%" alt="..."/></td>
+            <td>@item.Bouquet.Customer.Title</td>
+            <td>@item.Bouquet.Price.PriceValue</td>
+            <td>@item.Quantity</td>
+            <td>@((item.Quantity*item.Bouquet.Price.PriceValue).ToString("# руб"))</td>
+        </tr>
+    }
+    </tbody>
+    <tfoot>
+    <tr>
+        <td colspan="5" class="text-right">Итого:</td>
+        <td class="text-right">@Model.Cart.CulcPrice().ToString("# руб")</td>
+    </tr>
+    </tfoot>
+</table>
+<a class="btn btn-success" href="@Model.ReturnUrl">Продолжить покупки</a>

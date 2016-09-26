@@ -1,0 +1,117 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GettFlow - доставка цветов по России</title>
+    <link href="~/Content/CSS/reset.css" rel="stylesheet" />
+    <link href="~/Content/CSS/main.css" rel="stylesheet" />
+    <link href="~/Content/CSS/fonts.css" rel="stylesheet" />
+    <link href="~/Content/font-awesome-4.5.0/css/font-awesome.css" rel="stylesheet" />
+    <script src="~/Scripts/knockout-3.4.0.js"></script>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <!--Навигация-->
+    <div class="navbar navbar-fixed-top myNav">
+        <div class="container">
+            <a class="navbar-brand" href="@Url.Action("Index","Home")">
+                <img src="~/Content/img/logotype.png" alt="logo"/>
+            </a>
+            <ul class="navMenu">
+                <li><a class="phoneNumber" href="#">8-800-522-3545</a></li>
+                <li><a class="btnContact" href="#">КОНТАКТЫ</a></li>
+                <li><a class="btnAbout" href="#">О НАС</a></li>
+                <li><a class="btnOtziv" href="#">ОТЗЫВЫ</a></li>
+                <li><a class="btnDelivery" href="#">ДОСТАВКА</a></li>
+            </ul>
+        </div>
+    </div>
+<!--Коней навигации-->
+    @if (User.IsInRole("S"))
+    {
+        @Html.Action("TitleSeller","Seller")
+    }
+
+    @if (User.IsInRole("A") || User.IsInRole("M") || User.IsInRole("O"))
+    {
+        @Html.Action("TitleAdmin","Admin")
+    }
+<div>
+    @RenderBody()
+</div>
+
+    <!--Начало футера-->
+    <footer>
+        <div class="subscribe">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h3>ПОДПИШИТЕСЬ НА НАШУ РАССЫЛКУ</h3>
+                    </div>
+                    <div class="col-md-5 text-left form-inline">
+                        <input type="email" placeholder="Введите ваш e-mail">
+                        <input type="submit" value="Подписаться">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footMenu text-left">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3 hidden-sm">
+                        <img id="logotype" src="~/Content/img/logotype.png" alt="logo">
+                    </div>
+                    <div class="col-md-2 col-sm-4">
+                        <p>КОМПАНИЯ</p>
+                        <ul class="listCompany">
+                            <li><a href="#">О GettFlow</a></li>
+                            <li><a href="#">В прессе</a></li>
+                            <li><a href="#">Карьера</a></li>
+                            <li><a href="#">Связаться с нами</a></li>
+                            <li><a href="#">Правовые аспекты</a></li>
+                            <li><a href="#">Конфиденциальность</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-2 col-sm-4">
+                        <p>ПЛОЩАДКА</p>
+                        <ul class="listCompany">
+                            <li><a href="#">Магазины по городам</a></li>
+                            <li><a href="#">Партнерская программа</a></li>
+                            <li>@Html.ActionLink("Вход для магазинов", "LoginPage","Security")</li>
+                            <li><a href="#">Ресурсы для партнеров</a></li>
+                            <li><a href="#">Права и нормы</a></li>
+                            <li><a href="#">Оплата и доставка</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-2 col-sm-4">
+                        <p>ДАВАЙТЕ ДРУЖИТЬ</p>
+                        <ul class="listCompany">
+                            <li><a href="#"><i class="fa fa-heart-o"></i>  Блог на GettFlow</a></li>
+                            <li><a href="#"><i class="fa fa-instagram"></i>  Instagram</a></li>
+                            <li><a href="#"><i class="fa fa-facebook-official"></i>  Facebook</a></li>
+                            <li><a href="#"><i class="fa fa-twitter"></i>  Twitter</a></li>
+                            <li><a href="#"><i class="fa fa-pinterest-p"></i>  Pinterest</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="copyright text-center">
+            <p>Copyright <i class="fa fa-copyright"></i> @DateTime.Today.Year GettFlow.com - Доставка цветов по городам России</p>
+        </div>
+    </footer>
+    <!--Конец футера-->
+
+
+@Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jqueryval")
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>

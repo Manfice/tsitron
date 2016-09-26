@@ -1,0 +1,46 @@
+﻿@model tsitron.Domain.Entitys.Customers.Requisites
+    
+@using (Html.BeginForm("SaveRequisits","Seller",FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(requisites => requisites.Id)
+    <div class="formControl">
+        @Html.LabelFor(requisites => requisites.Title, "Наименование компании ")
+        @Html.EditorFor(requisites => requisites.Title)
+    </div>
+    <div class="formControl">
+        @Html.LabelFor(requisites => requisites.UrName, "Полное наименование ")
+        @Html.EditorFor(requisites => requisites.UrName)
+    </div>
+    <div class="formControl">
+        @Html.LabelFor(requisites => requisites.Address, "Юридический адресс ")
+        @Html.EditorFor(requisites => requisites.Address)
+    </div>
+    <div class="formControl">
+        @Html.LabelFor(requisites => requisites.Inn, "ИНН ")
+        @Html.EditorFor(requisites => requisites.Inn)
+    </div>
+    <div class="formControl">
+        @Html.LabelFor(requisites => requisites.Kpp, "КПП")
+        @Html.EditorFor(requisites => requisites.Kpp)
+    </div>
+    <div class="formControl">
+        @Html.LabelFor(requisites => requisites.Bank, "Банк ")
+        @Html.EditorFor(requisites => requisites.Bank)
+    </div>
+    <div class="formControl">
+        @Html.LabelFor(requisites => requisites.Account, "Расчетный счет ")
+        @Html.EditorFor(requisites => requisites.Account)
+    </div>
+    <div class="formControl">
+        @Html.LabelFor(requisites => requisites.KorrAccount, "Корр. счет ")
+        @Html.EditorFor(requisites => requisites.KorrAccount)
+    </div>
+    <div class="formControl">
+        @Html.LabelFor(requisites => requisites.Bik, "БИК")
+        @Html.EditorFor(requisites => requisites.Bik)
+    </div>
+    <div class="panel-footer">
+        <button type="submit">Сохранить</button>
+    </div>
+}

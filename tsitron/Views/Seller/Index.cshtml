@@ -1,0 +1,87 @@
+﻿@model tsitron.Domain.Entitys.Customers.Customer
+@{
+    ViewBag.Title = "Личный кабинет";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@section scripts
+{
+    <script src="~/Scripts/Models/customerModel.js"></script>
+    <script src="~/Scripts/Models/tsCustomerController.js"></script>
+<script src="~/Scripts/Models/storeAjax.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            getCustomer(@Model.Id);
+            ko.applyBindings();
+        })
+</script>
+
+}
+<div class="panelArea">
+    <div class="panel-head-area">
+        <h2>Профиль</h2>
+    </div>
+    <div class="panel-body-area">
+        <div class="panel-group" id="accordion">
+          
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panelTitle">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" class="collapsed">О магазине</a>
+                    </h4>
+                </div>
+                <div id="collapseOne" class="panel-collapse in">
+                    <div class="panel-body">
+                        @Html.Action("MyShop")
+                    </div>
+                </div>
+            </div>
+            
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panelTitle">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">Контакты</a>
+                    </h4>
+                </div>
+                <div id="collapseTwo" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        @Html.Action("Contacts")
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panelTitle">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" class="collapsed">Реквизиты</a>
+                    </h4>
+                </div>
+                <div id="collapseThree" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        @Html.Action("Requisites")
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panelTitle">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour" class="collapsed">Безопасность</a>
+                    </h4>
+                </div>
+                <div id="collapseFour" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="panel-foot-area">
+        подвал
+    </div>
+</div>
+            @*@Html.Partial("PlaceHolder/_CustomerData")
+            @Html.Partial("PlaceHolder/_CustomerReqisites")
+            @Html.Partial("PlaceHolder/_MyShop")*@

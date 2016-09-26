@@ -1,0 +1,26 @@
+@import url(http://allfont.ru/allfont.css?fonts=bodoni);
+/*font-family: "Bodoni", arial;*/
+@import url(http://allfont.ru/allfont.css?fonts=bodoni-bolditalic-cyrillic);
+/*font-family: 'Bodoni BoldItalic Cyrillic', arial;*/
+
+/* font-family: "ProximaNovaLight"; */
+@font-face {
+	font-family: "ProximaNovaLight";
+	src: url("/Content/CSS/fonts/ProximaNovaLight/proximanovalight.eot");
+	src: url("/Content/CSS/fonts/ProximaNovaLight/proximanovalight.eot?#iefix")format("embedded-opentype"),
+	url("/Content/CSS/fonts/ProximaNovaLight/proximanovalight.woff") format("woff"),
+	url("/Content/CSS/fonts/ProximaNovaLight/proximanovalight.ttf") format("truetype");
+	font-style: normal;
+	font-weight: normal;
+}
+/* font-family: "SagoeUILight"; */
+@font-face {
+	font-family: "SagoeUILight";
+	src: url("/Content/CSS/fonts/SagoeUILight/SEGOEUIL.eot");
+	src: url("/Content/CSS/fonts/SagoeUILight/SEGOEUIL.eot?#iefix")format("embedded-opentype"),
+	url("/Content/CSS/fonts/SagoeUILight/SEGOEUIL.woff") format("woff"),
+	url("/Content/CSS/fonts/SagoeUILight/SEGOEUIL.ttf") format("truetype");
+	font-style: normal;
+	font-weight: normal;
+}
+

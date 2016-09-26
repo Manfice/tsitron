@@ -1,0 +1,24 @@
+﻿@model tsitron.Domain.Models.FlowerViewModel
+
+<h4>Цветок</h4>
+@using (Html.BeginForm("AddFlower","Seller", FormMethod.Post, new { enctype = "multipart/form-data" })) 
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model=>model.CustomerId)
+
+    <div class="form-horizontal">
+        <p>Укажите тип цветка:</p>
+            @Html.DropDownListFor(model => model.FlowerType.Id, @ViewBag.ft as SelectList)
+        <p>Цены:</p>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Сохранить" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,80 @@
+﻿@model tsitron.Domain.Models.ViewModelBouquet
+
+@using (Html.BeginForm("AddBouquet","Seller",FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model=>model.Customer.Id)
+
+        <div class="form-horizontal">
+            <h4>Добавить новый букет.</h4>
+            <div class="row">
+                <div class="form-group">
+                    <p class="control-label col-md-2">Аватар:</p>
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model=>model.Image, new {type="file", @class="col-md-10"})
+                        @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <p class="control-label  col-md-2">Название букета:</p>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Title, new { @class = "form-control col-md-10" })
+                        @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                @*<div class="form-group">
+                    <p class="control-label  col-md-2">Событие:</p>
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.EventType.Id, @ViewBag.evt as SelectList, new {@class = "form-control col-md-10"})
+                        @Html.ValidationMessageFor(model => model.EventType.Id, "", new {@class = "text-danger"})
+                    </div>
+                </div>*@
+
+                <div class="form-group">
+                    <p class="control-label  col-md-2">Цвет:</p>
+                    <div class="col-md-10">
+                        @*@foreach (var col in Model.Colors)
+                        {
+                            <div class="color-chose">
+                                @if (col.Rainbow)
+                                {
+                                    <div class="color-circul gradient-rainbow"></div>
+                                }
+                                else
+                                {
+                                    <div class="color-circul" style="background-color: rgb(@col.Color.R, @col.Color.G, @col.Color.B)"></div>
+                                }
+                            </div>
+                        }*@
+                                @Html.EditorForModel(Model.Color) @*(model => model.ColorId, col.Id, new {@class = "input-color"})*@
+                    </div>
+                </div>
+
+                @*<div class="form-group">
+                    <p class="control-label  col-md-2">Время изготовления:</p>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Bouquet.TimeToMake, new {type="number", @class = "form-control"}) минут.
+                        @Html.ValidationMessageFor(model => model.Bouquet.TimeToMake, "", new { @class = "text-danger" })
+                    </div>
+                </div>*@
+
+                <div class="form-group">
+                    <p class = "control-label  col-md-2">Цена букета:</p>
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.Price, new {@class = "form-control", placeholder="Цена в раблях, без копеек"})
+                        @Html.ValidationMessageFor(model => model.Price, "", new {@class = "text-danger"})
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Создать" class="btn btn-default"/>
+                    </div>
+                </div>
+            </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

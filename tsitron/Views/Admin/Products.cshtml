@@ -1,0 +1,242 @@
+﻿
+@{
+    ViewBag.Title = "Products";
+    Layout = "~/Views/Shared/_OwnerLayout.cshtml";
+}
+
+@section scripts
+{
+    <script type="text/javascript">
+
+        var BouquetModel = {
+            view: ko.observable('list'),
+            svrAnsw:ko.observable(''),
+            moderateResult: {
+                moderated: ko.observable(),
+                ResultAnsw: ko.observable(''),
+                BouqId: ko.observable()
+            },
+            bk: {
+                 id:ko.observable(),
+                 title:ko.observable(),
+                 articul: ko.observable(),
+                 accepted: ko.observable(),
+                 description: ko.observable(),
+                mainPhoto:{
+                    path:ko.observable(),
+                    alt:ko.observable()
+                 },
+                 details: {
+                    id:ko.observable(),
+                    height:ko.observable(),
+                    width: ko.observable()
+                 },
+                 customer: {
+                    id:ko.observable(),
+                    title: ko.observable()
+                 },
+                 flowerComposition:ko.observable(),
+                 price: {
+                    id: ko.observable(),
+                    priceValue: ko.observable()
+                 },
+                 published:ko.observable(),
+                 timeToMake:ko.observable(),
+                 colors:ko.observableArray([]),
+                 eventTypes:ko.observableArray([]),
+                 photos: ko.observableArray([])
+            },
+            bouquets:ko.observableArray([])
+        };
+
+        var getBouquets = function() {
+            $.ajax({
+                type: "Get",
+                url: "/api/webadmin/getbouquets/",
+                success: function(data) {
+                    BouquetModel.bouquets.removeAll();
+                    BouquetModel.bouquets.push.apply(BouquetModel.bouquets, data);
+                }
+            });
+        };
+
+        var getBouqet = function(id) {
+            $.ajax({
+                type: "Get",
+                url: "/api/webadmin/GetBouquet/" + id,
+                success: function(data) {
+                    BouquetModel.bk.id(data.id);
+                    BouquetModel.bk.title(data.title);
+                    BouquetModel.bk.accepted(data.accepted);
+                    BouquetModel.bk.articul(data.articul);
+                    BouquetModel.bk.flowerComposition(data.flowerComposition);
+                    BouquetModel.bk.description(data.description);
+                    BouquetModel.bk.published(data.published);
+                    BouquetModel.bk.moderated(data.moderated);
+                    BouquetModel.bk.timeToMake(data.timeToMake);
+                    BouquetModel.bk.customer.id(data.customer.id);
+                    BouquetModel.bk.customer.title(data.customer.title);
+                    BouquetModel.bk.details.id(data.details.id);
+                    BouquetModel.bk.details.height(data.details.height);
+                    BouquetModel.bk.details.width(data.details.width);
+                    BouquetModel.bk.price.id(data.price.id);
+                    BouquetModel.bk.price.priceValue(data.price.priceValue);
+                    BouquetModel.bk.colors.removeAll();
+                    BouquetModel.bk.colors.push.apply(BouquetModel.bk.colors, data.colors);
+                    BouquetModel.bk.eventTypes.removeAll();
+                    BouquetModel.bk.eventTypes.push.apply(BouquetModel.bk.eventTypes, data.eventTypes);
+                    BouquetModel.bk.photos.removeAll();
+                    BouquetModel.bk.photos.push.apply(BouquetModel.bk.photos, data.photos);
+                }
+            });
+        };
+
+        var setBk = function(data) {
+            BouquetModel.bk.id(data.id);
+            BouquetModel.bk.title(data.title);
+            BouquetModel.bk.accepted(data.accepted);
+            BouquetModel.bk.articul(data.articul);
+            BouquetModel.bk.flowerComposition(data.flowerComposition);
+            BouquetModel.bk.description(data.description);
+            BouquetModel.bk.published(data.published);
+            BouquetModel.bk.timeToMake(data.timeToMake);
+            BouquetModel.bk.customer.id(data.customer.id);
+            BouquetModel.bk.customer.title(data.customer.title);
+            BouquetModel.bk.details.id(data.details.id);
+            BouquetModel.bk.details.height(data.details.height);
+            BouquetModel.bk.details.width(data.details.width);
+            BouquetModel.bk.price.id(data.price.id);
+            BouquetModel.bk.price.priceValue(data.price.priceValue);
+            BouquetModel.bk.colors.removeAll();
+            BouquetModel.bk.colors.push.apply(BouquetModel.bk.colors, data.colors);
+            BouquetModel.bk.eventTypes.removeAll();
+            BouquetModel.bk.eventTypes.push.apply(BouquetModel.bk.eventTypes, data.eventTypes);
+            BouquetModel.bk.photos.removeAll();
+            BouquetModel.bk.photos.push.apply(BouquetModel.bk.photos, data.photos);
+            BouquetModel.moderateResult.BouqId(data.id);
+            getAvatar(data.id);
+        };
+
+        var getAvatar = function(id) {
+            $.ajax({
+                type: "Get",
+                url: '/api/webadmin/GetPhotoView/' + id,
+                success: function(data) {
+                    BouquetModel.bk.mainPhoto.path(data.path);
+                    BouquetModel.bk.mainPhoto.alt(data.alt);
+                }
+            });
+        }
+
+        var modResultfalse = function() {
+            BouquetModel.moderateResult.moderated(false);
+            $.ajax({
+                type: "post",
+                url: "/api/webadmin/Moderate/",
+                data: BouquetModel.moderateResult,
+                success: function(data) {
+                    BouquetModel.svrAnsw(data.message);
+                    getBouquets();
+                    BouquetModel.view('list');
+                }
+            });
+        };
+
+        var modResulttrue = function () {
+            BouquetModel.moderateResult.moderated(true);
+            $.ajax({
+                type: "post",
+                url: "/api/webadmin/Moderate/",
+                data: BouquetModel.moderateResult,
+                success: function (data) {
+                    BouquetModel.svrAnsw(data.message);
+                    getBouquets();
+                    BouquetModel.view('list');
+                }
+            });
+        };
+
+        var moderate = function(bouquet) {
+            if (BouquetModel.view() === 'list') {
+                setBk(bouquet);
+                BouquetModel.view('mod');
+            } else {
+                BouquetModel.view('list');
+            }
+        };
+
+        $(document).ready(function () {
+            getBouquets();
+            ko.applyBindings();
+        });
+    </script>
+}
+<!--ko if:BouquetModel.view()=='mod'-->
+@Html.Partial("PlaceHolders/_ModerateBouquet")
+@*<h3 data-bind="text:bouqVm.moderateResult.BouqId"></h3>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        Букеты
+    </div>
+    <div class="panel-body">
+        <div class="col-md-2 col-md-offset-5 demention">
+            <a href="#">
+                <div class="flower">
+                    <img data-bind="attr:{src:bouqVm.bk.mainPhoto.path, alt:bouqVm.bk.photos.altText}">
+                    <div class="bFoot">
+                        <p data-bind="text:bouqVm.bk.title"></p>
+                        <h4 data-bind="text:bouqVm.bk.price.priceValue"></h4>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="panel-footer">
+        <input type="text" data-bind="value:bouqVm.moderateResult.ResultAnsw"/>
+        <button data-bind="click:modResulttrue">Принять</button>
+        <button data-bind="click:modResultfalse">Отклонить</button>
+        <button data-bind="click:moderate">OK</button>
+    </div>
+</div>*@
+<!--/ko-->
+
+    <!--ko if:BouquetModel.view()=='list'-->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Букеты
+                </div>
+
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr class="info">
+                                    <th>#</th>
+                                    <th>Наименование</th>
+                                    <th>Цена</th>
+                                    <th>Город</th>
+                                    <th>Магазин</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody data-bind="foreach:BouquetModel.bouquets">
+                                <tr data-bind="css:{success:$data.accepted}">
+                                    <td data-bind="text:$data.articul"></td>
+                                    <td data-bind="text:$data.title"></td>
+                                    <td data-bind="text:$data.price.priceValue"></td>
+                                    <td data-bind="text:$data.customer.location"></td>
+                                    <td data-bind="text:$data.customer.myShop.title"></td>
+                                    <td>
+                                        <button data-bind="click:moderate">Модерация</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--/ko-->

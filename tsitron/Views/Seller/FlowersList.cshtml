@@ -1,0 +1,63 @@
+﻿@model IEnumerable<tsitron.Domain.Models.FlowerViewModel>
+
+@if (TempData["sFl"] != null)
+{
+    <div style="color: green">
+        @TempData["sFl"]
+    </div>
+}
+@if (TempData["eFl"] != null)
+{
+    <div style="color: red">
+        @TempData["eFl"]
+    </div>
+}
+
+
+<table class="table table-hover table-responsive">
+    <thead>
+    <tr>
+        <td>Артикул</td>
+        <td>Аватар</td>
+        <td>Наименование</td>
+        <td>Описание</td>
+        <td>Цены</td>
+        <td>Действия</td>
+    </tr>
+    </thead>
+    <tbody>
+    @{
+        foreach (var flower in Model)
+        {
+            <tr>
+                <td style="max-width: 10%">@flower.Articul</td>
+                <td style="width: 10%"><img src="@Url.Action("Avatar", "Goods", new {flId = flower.FlowerId})" style="width: 100%" alt="avatar"/> </td>
+                <td>@flower.Title</td>
+                <td>
+                    <p style="text-align: justify">@flower.Description</p>
+                </td>
+                <td class="price-flower" style="background-color: whitesmoke">
+                    <ul>
+                        @foreach (var p in flower.Prices)
+                        {
+                            <li>
+                                <p>@p.Title:<span>@p.PriceValue.ToString("#### руб.")</span></p>
+                            </li>
+
+                        }
+                    </ul>
+                </td>
+               
+                <td style="max-width: 15%">
+                    @using (Html.BeginForm("DeleteFlower", "Seller", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.Hidden("id", flower.FlowerId)
+                        <input type="submit" value="Удалить" class="btn btn-danger btn-sm"/>
+                    }
+                </td>
+            </tr> 
+        }
+    }
+    </tbody>
+</table>

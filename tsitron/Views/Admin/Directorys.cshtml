@@ -1,0 +1,188 @@
+﻿@{
+    ViewBag.Title = "Directorys";
+    Layout = "~/Views/Shared/_OwnerLayout.cshtml";
+}
+
+@section scripts
+{
+    <script type="text/javascript">
+
+        var ViewModel = {
+            selectedViews: {
+                curentView: ko.observable('main'),
+                errmessage: ko.observable('')
+            },
+            newColor: {
+                title: ko.observable(),
+                selValue: ko.observable()
+            },
+            newFlower: {
+                title: ko.observable()
+            },
+            newEvent:{title:ko.observable()},
+            colors: ko.observableArray([]),
+            flowers: ko.observableArray([]),
+            events:ko.observableArray()
+            
+        };
+
+        var getEvents = function () {
+            $.ajax({
+                type: "Get",
+                url: "/api/webadmin/getEvents",
+                success: function (data) {
+                    ViewModel.events.removeAll();
+                    ViewModel.events.push.apply(ViewModel.events, data);
+                }
+            });
+        };
+
+        var saveEvent = function () {
+            $.ajax({
+                type: "Post",
+                url: "/api/webadmin/saveEvent/",
+                data: ViewModel.newEvent,
+                success: function (data) {
+                    ViewModel.selectedViews.errmessage(data.message);
+                    getEvents();
+                }
+            });
+        };
+
+        var deleteEvent = function (event) {
+            $.ajax({
+                type: "Post",
+                url: "/api/webadmin/deleteEvent/",
+                data: event,
+                success: function (data) {
+                    ViewModel.selectedViews.errmessage(data.message);
+                    getEvents();
+                }
+            });
+        };
+
+        var getFlower = function () {
+            $.ajax({
+                type: "Get",
+                url: "/api/webadmin/getFlowers",
+                success: function (data) {
+                    ViewModel.flowers.removeAll();
+                    ViewModel.flowers.push.apply(ViewModel.flowers, data);
+                }
+            });
+        };
+
+        var saveFlower = function() {
+            $.ajax({
+                type: "Post",
+                url: "/api/webadmin/saveFlower/",
+                data: ViewModel.newFlower,
+                success: function(data) {
+                    selectedViews.errmessage(data.message);
+                    getFlower();
+                }
+            });
+        };
+
+        var deleteFlower = function(flowers) {
+            $.ajax({
+                type: "Post",
+                url: "/api/webadmin/deleteflower/",
+                data: flowers,
+                success: function(data) {
+                    ViewModel.selectedViews.errmessage(data.message);
+                    getFlower();
+                }
+            });
+        };
+
+        var addColor = function() {
+            $.ajax({
+                type: "Post",
+                url: "/api/webadmin/saveColor/",
+                data: ViewModel.newColor,
+                success: function(data) {
+                    ViewModel.selectedViews.errmessage(data.message);
+                    getColors();
+                },
+                error: function(data) {
+                    ViewModel.selectedViews.errmessage(data.message);
+                }
+            });
+        };
+
+        var getColors = function() {
+            $.ajax({
+                type: "Get",
+                url: "/api/webadmin/getColors",
+                success: function(data) {
+                    ViewModel.colors.removeAll();
+                    ViewModel.colors.push.apply(ViewModel.colors, data);
+                }
+            });
+        };
+
+        var deleteColor = function(colors) {
+            $.ajax({
+                type: "Post",
+                url: "/api/webAdmin/deleteColor",
+                data: colors,
+                success: function(data) {
+                    ViewModel.selectedViews.errmessage(data.message);
+                    getColors();
+                }
+            });
+        }
+
+        var setView = function(view) {
+            ViewModel.selectedViews.curentView(view);
+            ViewModel.selectedViews.errmessage("");
+            if (view==="colors") {
+                getColors();
+            };
+            if (view==="flowers") {
+                getFlower();
+            };
+            if (view === "events") {
+                getEvents();
+            };
+        };
+
+
+        $(document).ready(function() {
+            ko.applyBindings();
+        });
+
+    </script>
+}
+<label data-bind="text:ViewModel.selectedViews.errmessage"></label>
+<div id="mainboard">
+    <button onclick="setView('main')">Главное меню</button>
+    <button onclick="setView('colors')">Цвета</button>
+    <button onclick="setView('flowers')">Цветы</button>
+    <button onclick="setView('events')">События</button>
+</div>
+
+<!--ko if:ViewModel.selectedViews.curentView()=='main'-->
+<div>
+    @Html.Partial("PlaceHolders/_Main")
+</div>
+<!--/ko-->
+
+<!--ko if:ViewModel.selectedViews.curentView()=='colors'-->
+<div>
+    @Html.Partial("PlaceHolders/_Colors")
+</div>
+<!--/ko-->
+
+<!--ko if:ViewModel.selectedViews.curentView()=='flowers'-->
+<div>
+    @Html.Partial("PlaceHolders/_Flowers")
+</div>
+<!--/ko-->
+
+<!--ko if:ViewModel.selectedViews.curentView()=='events'-->
+<div>
+    @Html.Partial("PlaceHolders/_Events")
+</div>
+<!--/ko-->

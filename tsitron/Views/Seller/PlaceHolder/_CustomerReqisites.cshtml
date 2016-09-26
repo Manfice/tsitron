@@ -1,0 +1,89 @@
+﻿<div class="panel panel-primary">
+    <div class="pull-right" style="margin: 5px; color: whitesmoke;">
+        Редактировать:
+        <input type="checkbox" data-bind="checked:ViewModel.editReq" />
+        <button style="color: darkblue" onclick="getCustomer(@Model.Id)">Обновить</button>
+    </div>
+    <div class="panel-heading">Реквизиты:</div>
+
+    <table class="table table-striped" data-bind="visible: ViewModel.editReq() == false">
+        <tbody>
+        <tr>
+            <td>Наименование компании:</td>
+            <td data-bind="text: ReqModel.urName"></td>
+        </tr>
+        <tr>
+            <td>ИНН:</td>
+            <td data-bind="text: ReqModel.inn"></td>
+        </tr>
+        <tr>
+            <td>КПП:</td>
+            <td data-bind="text: ReqModel.kpp" ></td>
+        </tr>
+        <tr>
+            <td>Юридический адрес:</td>
+            <td data-bind="text: ReqModel.address" ></td>
+        </tr>
+        <tr>
+            <td>Наименование банка:</td>
+            <td data-bind="text: ReqModel.bank" ></td>
+        </tr>
+        <tr>
+            <td>Расчетный счет:</td>
+            <td data-bind="text: ReqModel.account" ></td>
+        </tr>
+        <tr>
+            <td>Корр. счет:</td>
+            <td data-bind="text: ReqModel.korrAccount" ></td>
+        </tr>
+        <tr>
+            <td>БИК:</td>
+            <td data-bind="text: ReqModel.bik" ></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <table class="table table-striped" data-bind="visible: ViewModel.editReq">
+        <tbody>
+        <tr>
+            <td>Наименование компании:</td>
+            <td><input class="form-control" data-bind="value: ReqModel.urName" type="text" name="urName" id="urName"/> </td>
+        </tr>
+        <tr>
+            <td>ИНН:</td>
+            <td><input data-bind="value: ReqModel.inn" type="text" class="form-control"/></td>
+        </tr>
+        <tr>
+            <td>КПП:</td>
+            <td><input  data-bind="value: ReqModel.kpp" type="text" class="form-control"/></td>
+        </tr>
+        <tr>
+            <td>Юридический адрес:</td>
+            <td><input data-bind="value: ReqModel.address" type="text" class="form-control"/></td>
+        </tr>
+        <tr>
+            <td>Наименование банка:</td>
+            <td><input data-bind="value: ReqModel.bank" type="text" class="form-control"/></td>
+        </tr>
+        <tr>
+            <td>Расчетный счет:</td>
+            <td><input data-bind="value: ReqModel.account" type="text" class="form-control"/></td>
+        </tr>
+        <tr>
+            <td>Корр. счет:</td>
+            <td><input data-bind="value: ReqModel.korrAccount" type="text" class="form-control"/></td>
+        </tr>
+        <tr>
+            <td>БИК:</td>
+            <td><input data-bind="value: ReqModel.bik" class="form-control" type="text"/></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="panel-footer">
+        <div class="text-center">
+            <button name="save" onclick="saveReqData()">Сохранить</button>
+        </div>
+    </div>
+
+</div>

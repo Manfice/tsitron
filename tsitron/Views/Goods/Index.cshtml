@@ -1,0 +1,29 @@
+﻿@{
+    ViewBag.Title = "Букеты";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="goods">
+    <a id="add" href="#" class="btn btn-sm btn-success">Добавить букет</a>
+    @*<ul class="goods-menu">
+        <li><a id="add" href="#">Добавить букет</a></li>
+        <li><a href="#">Выложить на витрину</a></li>
+        <li><a href="#">Изменить цены</a></li>
+        <li><a href="#">Удалить</a></li>
+    </ul>*@
+</div>
+
+<div class="box">
+    <div class="box-panel" id="create_bouquet" style="display: none">
+        @Html.Action("AddBouquet", "Seller")
+    </div>
+</div>
+
+<div class="box">
+    <div class="box-top">
+        <h5>Мои букеты</h5>    
+    </div>
+    <div class="box-panel">
+        @Html.Action("Bouqets","Seller")
+    </div>
+</div>

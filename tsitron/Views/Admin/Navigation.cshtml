@@ -1,0 +1,51 @@
+﻿@model tsitron.Domain.Entitys.Secure.User
+
+<nav class="navbar-default navbar-side" role="navigation">
+    <div class="sidebar-collapse">
+        <ul class="nav" id="main-menu">
+
+            <li>
+                <div class="user-img-div">
+                    <img src="~/Content/img/face.jpg" class="img-thumbnail" />
+                    <div class="inner-text">
+                        @Model.Name
+                        <br />
+                        <small>@Model.UserRole.Descr</small>
+                    </div>
+                </div>
+            </li>
+
+            <li>
+                <a class="active-menu" href="@Url.Action("MainPage","Admin")"><i class="fa fa-dashboard "></i>Статистика</a>
+            </li>
+            <li>
+                <a href="#"><i class="fa fa-desktop "></i>Профайл</a>
+            </li>
+            <li>
+                <a href="@Url.Action("UserList","Admin")"><i class="fa fa-yelp "></i>Пользователи</a>
+            </li>
+            <li>
+                <a href="@Url.Action("Directorys","Admin")"><i class="fa fa-flash "></i>Справочники </a>
+
+            </li>
+            <li>
+                <a href="@Url.Action("Products","Admin")"><i class="fa fa-product-hunt"></i>Товары</a>
+            </li>
+            <li>
+                <a href="@Url.Action("Orders")"><i class="fa fa-anchor "></i>Заказы</a>
+            </li>
+            <li>
+                <a href="error.html"><i class="fa fa-bug "></i></a>
+            </li>
+            <li>
+                <a href="login.html"><i class="fa fa-sign-in "></i></a>
+            </li>
+            <li>
+                <a href="#"><i class="fa fa-sitemap "></i></a>
+            </li>
+            <li>
+                <a href="blank.html"><i class="fa fa-square-o"></i></a>
+            </li>
+        </ul>
+    </div>
+</nav>

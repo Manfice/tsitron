@@ -1,0 +1,93 @@
+﻿/*----------------
+    ЭЛЕМАНТЫ УПРАВЛЕНИЯ
+-------------------*/
+
+/*Panel*/
+.panelArea {
+    position: relative;
+    display: block;
+    margin: 5px;
+}
+.panelArea .panel-head-area {
+    background:linear-gradient(-166deg, rgb(243, 201, 255), rgb(174, 179, 202));
+    padding: 10px;
+    border-left: solid 5px rgb(200, 222, 76);
+}
+.panelArea .panel-head-area h2 {
+    padding: 30px 0 25px 100px;
+    font-family: "Sagoe", monospace;
+    font-size: 25px;
+}
+.panelArea .panel-head-area .left-icon {
+    position: relative;
+    float: left;
+    width: 80px;
+    height: 80px;
+    background-color: transparent;
+    border: solid 2px rgb(109, 58, 220);
+    border-radius: 50%;
+}
+.left-icon i {
+    position: absolute;
+    left: 25px;
+    top: 25px;
+    font-size: 30px;
+    color: rgb(109, 58, 220);
+}
+.ordersSection {
+    list-style: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+.ordersSection li {
+    float: right;
+    display: inline-block;
+    margin: 40px 20px 0 0;
+}
+.ordersSection li a {
+    display: block;
+    cursor: pointer;
+    line-height: 30px;
+    padding: 0 30px;
+    border: solid 1px white;
+    color: white;
+}
+.ordersSection li a span {
+    font-weight: bold;
+    color: red;
+}
+.panelArea .panel-body-area {
+    background-color: bisque;
+}
+.panel-body-area table {
+    width: 100%;
+}
+.panel-body-area table thead {
+    text-align: center;
+     background: cornflowerblue;
+}
+.panel-body-area table thead tr {
+    width: 100%;
+}
+.panel-body-area table thead tr td{
+    padding: 20px;
+}
+.panelArea .panel-foot-area {
+    background-color: aquamarine;
+}
+.panelTitle>a {
+    color: darkred;
+    text-decoration: none;
+}
+.panelTitle>a:active,
+.panelTitle>a:focus {
+    color: darkblue;
+    font-weight: bold;
+}
+.weekEnds input[type="number"] {
+    width: 50px;
+}
+/*-------------------------
+    / Элементов управления
+-----------------------------*/

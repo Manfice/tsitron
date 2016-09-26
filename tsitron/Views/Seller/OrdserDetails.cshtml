@@ -1,0 +1,87 @@
+﻿@using tsitron.Domain.Entitys.Goods
+@using tsitron.Domain.Entitys.Orders
+@model Order
+
+@{
+    ViewBag.Title = "OrdserDetails";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Заказ №@Model.Id от @Model.OrderDate</h2>
+
+<div>
+    <h4>Описание</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayName("Заказ на дату:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Recipient.Date)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Букет:")
+        </dt>
+
+        <dd>
+            <div>
+                <dl>
+                    <dt>Артикул:</dt>
+                    <dd>@Model.Bouquet.Articul</dd>
+                    <dt>Наименование:</dt>
+                    <dd>@Model.Bouquet.Title</dd>
+                    <dt>Описание:</dt>
+                    <dd>@Model.Bouquet.FlowerComposition</dd>
+                    <dt>Фото:</dt>
+                    <dd><img src="@Url.Content(@Model.Bouquet.Photos.FirstOrDefault(photo => photo.ImageType==ArtGenerator.ImageType.Avatar).Path)" style="width: 150px"/></dd>
+                </dl>
+            </div>
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Доставить:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Recipient.Date)
+        </dd>
+        <dt>
+            @Html.DisplayName("Клиенту:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Recipient.Name)
+        </dd>
+        <dt>
+            @Html.DisplayName("Телефон:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Recipient.Phone)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Обратно к заказам","MyOrders")
+    @if (Model.Status == OrderStatus.Доставка)
+    {
+        <a href="@Url.Action("ChangeStatus", "Seller", new {id = Model.Id, status = OrderStatus.Исполнен})">Доставленно</a>
+        <a href="@Url.Action("ChangeStatus","Seller",new {id=Model.Id, status=OrderStatus.Отказ})">Отклонить</a>
+    }
+    @if (Model.Status == OrderStatus.Новый)
+    {
+        <a href="@Url.Action("ChangeStatus", "Seller", new {id = Model.Id, status = OrderStatus.Доставка})">Принять</a>
+        <a href="@Url.Action("ChangeStatus","Seller",new {id=Model.Id, status=OrderStatus.Отказ})">Отклонить</a>
+    }
+</p>

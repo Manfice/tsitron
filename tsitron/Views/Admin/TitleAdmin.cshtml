@@ -1,0 +1,19 @@
+﻿@model tsitron.Domain.Entitys.Secure.User
+
+<div class="custView">
+    <div class="photoCust">
+        <img src="~/Content/img/logotype.png" alt="photo" />
+    </div>
+    <div class="descrSeller text-right">
+        <h4>@Model.Name</h4>
+        <p>@Model.RegisterDate.ToString("dd MMMM yyyy")</p>
+        <p>@Model.Email</p>
+        <p>@Model.Login</p>
+    </div>
+    <div class="options">
+        <ul>
+            <li>@Html.ActionLink("АДМИНКА", "MainPage", "Admin")</li>
+            <li>@Html.ActionLink("ВЫХОД", "Logout", "Security")</li>
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,44 @@
+﻿@model tsitron.Domain.Models.LoginViewModel
+@{
+    ViewBag.Title = "Вход для пользователя";
+    Layout = "../Shared/_Main.cshtml";
+}
+
+<div class="formLogin text-center">
+    @if (TempData["secureMessage"] != null)
+            {
+        <div class="well">
+            <h4>@TempData["secureMessage"]</h4>
+        </div>
+    }
+    <div class="container">
+        <div class="row">
+            <div class="col-md-offset-4 col-md-5 logForm">
+                @using (Html.BeginForm("Login", "Security", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    <p>Пожалуйста авторизуйтесь для перехода к настройкам.</p>
+                    @Html.TextBoxFor(model => model.Telephone, new {placeholder = "+79XXXXXXXXX"})
+                    @Html.ValidationMessageFor(model => model.Telephone, "")
+
+                    @Html.PasswordFor(model => model.Password)
+
+                    <div class="controlsFormLogin">
+                        <a href="#">Забыли пароль?</a>
+                        <input type="submit" value="ВОЙТИ"/>
+                    </div>
+                }
+            </div>
+
+            <div class="col-md-offset-4 col-md-5 pleaseRegister text-center">
+                <p>У Вас еще нет аккаунта? Создайте его прямо сейчас!</p>
+                <div class="btnRegist">
+                    @Html.ActionLink("Создать аккаунт", "Register", "Security")
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+

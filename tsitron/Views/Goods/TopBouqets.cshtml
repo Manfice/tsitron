@@ -1,0 +1,14 @@
+﻿@model IEnumerable<tsitron.Domain.Models.BouquetViewModel>
+
+
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-4">
+                <div>
+                    <img src="@Url.Action("BouqPhoto","Goods",new {imgId=item.Image.Id})" style="width: 100%" alt="@item.Title" />
+                </div>
+            </div>
+        }
+    </div>
+

@@ -1,0 +1,447 @@
+﻿.user-height {
+    font-size: 200%;
+}
+.title-top {
+    background: #f2f2f2 url(../Content/img/bwbg60.gif) repeat;
+}
+.title-top-back {
+    background: rgba(242, 242, 242, 0.7) ;
+}
+.reg_section {
+    background-color: rgba(255, 157, 0, 0.6);
+}
+.login-title {
+    margin: 20px;
+}
+.menu {
+    background-color: #666;
+    height: 40px;
+}
+.menu ul {
+    list-style: none;
+    margin: 0 auto;
+}
+.menu ul li {
+    float: left;
+    display: inline;
+}
+.menu a {
+    text-decoration: none;
+}
+.menu a:link, .menu a:visited {
+    color: #fff;
+    display: inline-block;
+    padding: 10px 25px;
+    height: 40px;
+    
+}
+.active-link {
+    background-color: #cd853f;
+    border-bottom: solid 2px #006400;
+}
+.menu a:hover, .active-link a:link, .active-link a:visited {
+    background-color: #cd853f;
+    border-bottom: solid 2px #006400;
+}
+/*Admin panel*/
+.logo-admin {
+    float: left;
+    line-height: 50px;
+    margin-left: 25px;
+    outline: none;
+    font-size: 1.6em;
+    color: #fff;
+    -webkit-transition: 0.5s;
+    -moz-transition: 0.5s;
+    -ms-transition: 0.5s;
+    -o-transition: 0.5s;
+    transition: 0.5s;
+}
+
+.logo a {
+    line-height: 50px;
+    display: block;
+    text-decoration: none;
+}
+.logo-admin:hover {
+    color: orangered;
+    text-decoration: none;
+}
+#container-body {
+    width: 100%;
+    /*margin: 0 auto;*/
+}
+.sidebar {
+    width: 100%;
+    /*height: 100%;*/
+    /*float: left;*/
+    background: #171717;
+}
+ul#nav {
+    margin: 0;
+    padding: 0;
+}
+ul#nav li {
+    list-style: none;
+}
+a#title {
+        font-weight: bold;
+    font-size: 1.6em;
+    color: #ccc;
+    display: block;
+    padding: 15px;
+    text-decoration: none;
+    border-bottom: 1px solid #666;
+}
+ul#nav li a {
+    font-weight: bold;
+    font-size: 1.6em;
+    color: #ccc;
+    display: block;
+    padding: 15px;
+    text-decoration: none;
+    border-bottom: 1px solid #666;
+    -webkit-transition: 0.2s;
+    -moz-transition: 0.2s;
+    -ms-transition: 0.2s;
+    -o-transition: 0.2s;
+    transition: 0.2s;
+}
+ul#nav li a:hover {
+    background: #454444;
+    padding-left: 30px; 
+}
+.selected {
+    background: #454444;
+}
+.content {
+    width: auto;
+    height: 100%;
+    margin-left: 250px;
+    background-color: #bdc3c7;
+    padding: 1%;
+}
+.content-data {
+    margin: 0;
+    padding: 1%;
+    background-color: #1e90ff;
+}
+.box {
+    margin-bottom: 10px;
+    background-color: #a9a9a9;
+    
+}
+.box .box-top {
+    color: #95a5a6;
+    -ms-text-shadow: 0 0 0 1px #8c8c8c;
+    text-shadow: 0 0 0 1px #ddd;
+    background-color: #34495e;
+    padding: 5px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+.box .box-panel {
+    padding: 15px 5px;
+    background-color: #ecf0f1;
+    color: #34495e;
+    font-weight: 700;
+    overflow: hidden;
+}
+.goods {
+    margin-bottom: 5px;
+}
+.goods ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.goods ul li {
+    float: left;
+    width: 25%;
+    border-right: 1px solid #cd853f;
+}
+.goods ul li:last-child {
+    border-right: none;
+}
+.goods ul li a:hover {
+    background-color: #DE8401;
+}
+.goods-menu li a {
+    text-decoration: none;
+    font-size: 150%;
+    color: white;
+    background-color: orange;
+    line-height: 50px;
+    text-align: center;
+    display: block;
+}
+.admin-nav {
+    width: 250px;
+    float: left;
+    background-color: #999;
+}
+.nav-title {
+    padding: 10px;
+    background-color: orange;
+    margin: 0;
+}
+.admin-nav ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.admin-nav ul li {
+    line-height: 30px;
+    background-color: #222;
+    padding-left: 10px;
+}
+.admin-nav ul li a {
+    line-height: 30px;
+    font-size: 17px;
+    color: whitesmoke;
+}
+.price-flower {
+    margin: 10px;
+    width: 20%;
+}
+.price-flower ul {
+    width: 100%;
+}
+.price-block {
+    background-color: orange;
+    padding: 5px;
+    margin: 5px;
+    border-radius: 5px;
+}
+.price-flower span {
+    background-color: #FFA500;
+    padding: 5px;
+    border-radius: 5px;
+    margin: 5px;
+}
+.color-circul {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin: 20px;
+}
+.gradient-rainbow{ 
+background: -moz-linear-gradient(left, red, orange, yellow, green, 
+blue, indigo, violet);
+background: -webkit-gradient(linear, left center, right center, from(red), 
+color-stop(14%, orange), color-stop(28%, yellow), color-stop(42%, green), 
+color-stop(56%, blue), color-stop(70%, indigo), to(violet)); 
+background: -o-linear-gradient(left, red, orange, yellow, green, 
+blue, indigo, violet);
+background: -ms-linear-gradient(left, red, orange, yellow, green, 
+blue, indigo, violet);
+}
+.scrollable {
+    overflow-y: scroll;
+}
+.filters {
+    background-color: #8c8c8c;
+    width: 100%;
+    height: 500px;
+}
+.test-trans {
+    border: 1px solid #0000ff;
+    width: 90%;
+}
+/*визуально раскидаем кружки выбора цвета в addBouquet*/
+.color-chose {
+    background-color: #666;
+    width: 5%;
+    float: left;
+    margin: 5px;
+}
+.input-color {
+    margin: 0 0 0 27px !important;
+}
+
+/*Alexey Фотки букетов на витрину*/
+.bouquet {
+    position: relative;
+	width: 250px;
+    height: 500px;
+}
+.bouquet img {
+    width: 100%;
+
+}
+.bouquet-header {
+
+	position: relative;
+	top: 0;
+	width: 100%;
+	height: 10%;	
+}
+
+.bouquet-footer {
+
+	position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 15%;
+}
+
+/* add favorite */
+.bouquet-header a {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 48px;
+    height: 48px;
+    background: url('../Content/img/favorite.png') 50% 50% no-repeat;
+    z-index: 100;
+}
+
+.bouquet-header a:hover {	
+
+	cursor: pointer;
+}
+
+/* circles */
+.bouquet-circles {
+
+	text-align: center;
+}
+
+/* one circle */
+.bouquet-circles div {	
+	
+	display: inline-block;	
+	width: 30px;
+  	height: 30px; 
+
+	border-radius: 50%;
+	margin:  0 5px 0 5px;
+
+  	z-index: 1;
+}
+
+.bouquet .bouquet-wrap .bouquet-descr {
+
+	position: absolute;
+	top: 0;
+	height: 0;
+	width: 100%;	
+
+	background: #000;
+    visibility: hidden;
+}
+
+.bouquet:hover .bouquet-wrap .bouquet-descr {
+
+	height: 100%;
+
+    background-color: rgba(0, 0, 0, 0.6);
+    visibility: visible;
+	
+	transition: visibility 0.5s;	
+	transition: height 0.5s;	
+}
+
+.bouquet-wrap { 
+
+	position: absolute;
+	cursor: pointer; 
+}
+
+.bouquet-content {
+	padding: 10px 20px 10px 20px;
+}
+
+/* under image ... */
+.bouquet-info {
+    width: 100%;
+	position: absolute;
+	display: inline-block; 	
+	padding: 8px 0 0 0;
+}
+
+/* ... title ... */
+.bouquet-info .title {
+
+	font-size: 1.2em;
+	line-height: 1.1em;
+}
+
+.bouquet-info .title a { 
+
+	transition: 1s; 
+}
+
+.bouquet-info .title a:hover {
+
+	text-decoration:none; 
+}
+
+/* ... longtitle under title */
+.bouquet-info .longtitle {
+
+	width: 100%;	
+}
+
+.bouquet-info .longtitle p {
+
+	font-size: 0.9em; 
+	color: #555;
+}
+
+/* show/hide content */
+.bouquet-descr div {
+	
+    position: absolute;	
+	top: 10%; 
+	width: 100%; 
+
+	color: rgba(255,255,255,1);        
+}
+
+/* button in show/hide content */
+.bouquet-descr div p {
+
+	text-align: center;
+	padding-top: 15px;	
+}
+
+/* transition buttons */
+.pay-it a,
+.pay-it a:hover,
+.bouquet-descr div a, 
+.bouquet-descr div a:hover {  } 
+
+
+.pay-info {
+
+	position: absolute;
+	width: 100%;
+
+	display: inline-block;
+}
+
+.pay-info .price {
+
+	text-align: left;
+	width: 60%;
+	float: left;
+
+	font-size: 1.6em;	
+}
+
+.pay-info .pay-it {
+
+	text-align: right;
+	width: 40%;
+	float: right;
+}
+/*Small nav bar*/
+.sm-nav li {
+    float: right;
+}
+.sm-nav {
+    margin: 5px 20px;
+}
